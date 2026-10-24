@@ -87,13 +87,38 @@ export const TopBar: React.FC<TopBarProps> = ({
         "px-6 sm:px-8 flex items-center justify-between gap-4 transition-all duration-300",
         isCoordinator ? "py-3 border-b border-black/5" : "py-4 min-h-[82px]"
       )}>
-        {/* 1. Left: Role POV Switcher */}
-        <div className="flex items-center gap-3 shrink-0">
+        {/* 1. Far Left: Branded REACT Tab Pill (Styled Exactly as Requested) */}
+        <div className="flex items-center shrink-0">
+          <button
+            onClick={onToggleHero}
+            className="flex items-center gap-2.5 px-3 py-1.5 rounded-full border border-[#8FD13F] bg-white shadow-sm hover:shadow-md hover:border-[#5B9C20] transition-all cursor-pointer group active:scale-95 select-none"
+            title="REACT: Resource Evaluation Against Compound Threats — Click for Interactive Protocol Overview"
+          >
+            {/* Green Status Beacon Dot */}
+            <div className="w-2.5 h-2.5 rounded-full bg-[#5B9C20] animate-pulse shrink-0 ml-1" />
+
+            {/* Inner Light-Green Capsule for REACT */}
+            <div className="px-2.5 py-0.5 rounded-lg bg-[#E6F4D7] border border-[#8FD13F]/35 text-[#1B4318] font-display font-black tracking-widest text-xs sm:text-sm uppercase shadow-inner">
+              REACT
+            </div>
+
+            {/* Subtle Divider */}
+            <div className="w-[1px] h-3.5 bg-black/20 mx-0.5 shrink-0" />
+
+            {/* Subtitle Definition */}
+            <span className="text-xs sm:text-sm font-sans font-semibold text-[#14170F]/85 tracking-tight pr-2 whitespace-nowrap hidden sm:inline">
+              Resource Evaluation Against Compound Threats
+            </span>
+          </button>
+        </div>
+
+        {/* 2. Middle: Operational Role POV Switcher */}
+        <div className="flex-1 flex items-center justify-center px-4">
           <div className="flex items-center bg-black/[0.04] border border-black/10 p-1.5 rounded-full shadow-inner">
             <button
               onClick={() => onSelectRolePOV('coordinator')}
               className={cn(
-                'px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm transition-all flex items-center gap-2.5 active:scale-95',
+                'px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm transition-all flex items-center gap-2 active:scale-95',
                 rolePOV === 'coordinator'
                   ? 'bg-white text-[#14170F] shadow-sm font-display font-black'
                   : 'text-[#14170F]/65 hover:text-[#14170F] font-bold'
@@ -106,7 +131,7 @@ export const TopBar: React.FC<TopBarProps> = ({
             <button
               onClick={() => onSelectRolePOV('hospital')}
               className={cn(
-                'px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm transition-all flex items-center gap-2.5 active:scale-95',
+                'px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm transition-all flex items-center gap-2 active:scale-95',
                 rolePOV === 'hospital'
                   ? 'bg-white text-[#14170F] shadow-sm font-display font-black'
                   : 'text-[#14170F]/65 hover:text-[#14170F] font-bold'
@@ -119,7 +144,7 @@ export const TopBar: React.FC<TopBarProps> = ({
             <button
               onClick={() => onSelectRolePOV('supplier')}
               className={cn(
-                'px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm transition-all flex items-center gap-2.5 active:scale-95',
+                'px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm transition-all flex items-center gap-2 active:scale-95',
                 rolePOV === 'supplier'
                   ? 'bg-white text-[#14170F] shadow-sm font-display font-black'
                   : 'text-[#14170F]/65 hover:text-[#14170F] font-bold'
@@ -130,33 +155,6 @@ export const TopBar: React.FC<TopBarProps> = ({
               <span>{domainPack === 'manufacturing' ? 'Wafer Hub' : 'Supplier Depot'}</span>
             </button>
           </div>
-        </div>
-
-        {/* 2. Middle: Grand Prestigious REACT Title Button */}
-        <div className="flex-1 flex items-center justify-center px-4">
-          <button
-            onClick={onToggleHero}
-            className={cn(
-              "flex items-center rounded-2xl bg-black/[0.04] hover:bg-black/[0.08] border border-black/10 transition-all cursor-pointer group shadow-sm active:scale-95 select-none",
-              isCoordinator ? "gap-3 px-6 py-2" : "gap-4 px-8 py-3 animate-fadeIn"
-            )}
-            title="REACT: Resource Evaluation Against Compound Threats — Click for Interactive Protocol Overview"
-          >
-            <div className={cn("rounded-full bg-[#5B9C20] animate-pulse shrink-0", isCoordinator ? "w-3 h-3" : "w-4 h-4")} />
-            <span className={cn(
-              "font-display font-black text-[#14170F] tracking-tight group-hover:text-[#2D5A1E] transition-colors shrink-0",
-              isCoordinator ? "text-2xl sm:text-3xl" : "text-3xl sm:text-4xl"
-            )}>
-              REACT
-            </span>
-            <span className={cn("text-black/25 font-bold shrink-0", isCoordinator ? "text-xl sm:text-2xl" : "text-2xl sm:text-3xl")}>|</span>
-            <span className={cn(
-              "font-display font-extrabold text-[#14170F]/85 tracking-wide",
-              isCoordinator ? "text-xs sm:text-sm hidden md:inline" : "text-base sm:text-lg inline"
-            )}>
-              Resource Evaluation Against Compound Threats
-            </span>
-          </button>
         </div>
 
         {/* 3. Right: Chronometer HUD + Domain Switcher (Coordinator) OR Quick CTA (Hospital/Supplier) */}
