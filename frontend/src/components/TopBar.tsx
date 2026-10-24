@@ -91,22 +91,22 @@ export const TopBar: React.FC<TopBarProps> = ({
         <div className="flex items-center shrink-0">
           <button
             onClick={onToggleHero}
-            className="flex items-center gap-2.5 px-3 py-1.5 rounded-full border border-[#8FD13F] bg-white shadow-sm hover:shadow-md hover:border-[#5B9C20] transition-all cursor-pointer group active:scale-95 select-none"
+            className="flex items-center gap-3 px-3.5 py-1.5 rounded-2xl border border-[#94D648] bg-white shadow-sm hover:shadow-md hover:border-[#5B9C20] transition-all cursor-pointer group active:scale-95 select-none h-11"
             title="REACT: Resource Evaluation Against Compound Threats — Click for Interactive Protocol Overview"
           >
             {/* Green Status Beacon Dot */}
-            <div className="w-2.5 h-2.5 rounded-full bg-[#5B9C20] animate-pulse shrink-0 ml-1" />
+            <div className="w-2.5 h-2.5 rounded-full bg-[#5C9F19] shrink-0" />
 
             {/* Inner Light-Green Capsule for REACT */}
-            <div className="px-2.5 py-0.5 rounded-lg bg-[#E6F4D7] border border-[#8FD13F]/35 text-[#1B4318] font-display font-black tracking-widest text-xs sm:text-sm uppercase shadow-inner">
+            <div className="px-3 py-1 rounded-lg bg-[#EAF4DA] border border-[#D1E5B6] text-[#1B471E] font-mono font-black tracking-[0.22em] text-xs uppercase flex items-center justify-center leading-none">
               REACT
             </div>
 
             {/* Subtle Divider */}
-            <div className="w-[1px] h-3.5 bg-black/20 mx-0.5 shrink-0" />
+            <div className="w-[1px] h-4 bg-[#E0E0E0] shrink-0" />
 
             {/* Subtitle Definition */}
-            <span className="text-xs sm:text-sm font-sans font-semibold text-[#14170F]/85 tracking-tight pr-2 whitespace-nowrap hidden sm:inline">
+            <span className="text-[13px] font-sans font-medium text-[#4E4E4C] tracking-tight pr-1 whitespace-nowrap">
               Resource Evaluation Against Compound Threats
             </span>
           </button>
