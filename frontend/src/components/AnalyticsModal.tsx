@@ -73,7 +73,7 @@ export const AnalyticsModal: React.FC<AnalyticsModalProps> = ({
       const data = await resp.json();
       setStressAudit(data);
     } catch {
-      setAuditError('Failed to execute Monte Carlo stress audit. Ensure backend is running.');
+      setAuditError('Failed to execute crisis resilience stress audit. Ensure backend is running.');
     } finally {
       setIsAuditing(false);
     }
@@ -91,14 +91,14 @@ export const AnalyticsModal: React.FC<AnalyticsModalProps> = ({
             <div>
               <div className="flex flex-wrap items-center gap-2.5">
                 <h2 className="text-base sm:text-lg font-black text-[#14170F] tracking-tight uppercase">
-                  Executive ROI, 3-Way Benchmarks & Stress Audit
+                  Executive ROI, 3-Way Benchmarks & Crisis Stress Audit
                 </h2>
                 <span className="text-xs font-mono px-2.5 py-0.5 rounded-lg font-bold uppercase border bg-emerald-100 text-emerald-900 border-emerald-300">
                   {domainPack === 'manufacturing' ? 'Semiconductor JIT Accelerator' : 'Healthcare Crisis Logistics'}
                 </span>
               </div>
               <p className="text-xs sm:text-sm text-[#14170F]/70 mt-1">
-                Quantified business value, experimental multi-agent validation, and in-memory Monte Carlo resilience fuzzer.
+                Quantified business value, experimental multi-agent validation, and in-memory crisis resilience & chaos audit fuzzer.
               </p>
             </div>
           </div>
@@ -161,7 +161,7 @@ export const AnalyticsModal: React.FC<AnalyticsModalProps> = ({
             )}
           >
             <Zap className="w-4 h-4 text-sky-700" />
-            <span>25-Scenario Monte Carlo Stress Audit</span>
+            <span>25-Scenario Crisis Resilience & Chaos Audit</span>
           </button>
         </div>
 
@@ -169,7 +169,7 @@ export const AnalyticsModal: React.FC<AnalyticsModalProps> = ({
         <div className="flex-1 overflow-y-auto p-6 space-y-6 font-sans text-sm text-[#14170F]">
           {/* TAB 1: AI-TO-ROI & POSITIONING */}
           {activeTab === 'roi' && (
-            <div className="space-y-6">
+            <div key="tab-roi" className="space-y-6 animate-fade-in">
               {/* 4 Financial & Operational KPI Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {/* KPI 1 */}
@@ -242,10 +242,10 @@ export const AnalyticsModal: React.FC<AnalyticsModalProps> = ({
                       [ENTERPRISE VALUE]
                     </span>
                     <span className="text-xs text-[#14170F]/60 block mt-1">
-                      Enterprise Framework Value
+                      Annual Enterprise Logistics Value
                     </span>
                     <div className="text-2xl font-black font-mono text-purple-800 mt-2">
-                      ₹1 Crore / Year
+                      ₹1.05 Cr / Year
                     </div>
                     <span className="text-xs font-bold text-purple-700 block mt-1">
                       Enterprise Tier Value
@@ -331,7 +331,7 @@ export const AnalyticsModal: React.FC<AnalyticsModalProps> = ({
 
           {/* TAB 2: 3-WAY EXPERIMENTAL BENCHMARK */}
           {activeTab === 'benchmark' && (
-            <div className="space-y-6">
+            <div key="tab-benchmark" className="space-y-6 animate-fade-in">
               {/* Executive Takeaways Banner */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="p-4 rounded-xl bg-white border border-black/10 shadow-sm">
@@ -454,7 +454,7 @@ export const AnalyticsModal: React.FC<AnalyticsModalProps> = ({
 
           {/* TAB: NEURO-SYMBOLIC INNOVATION ARCHITECTURE */}
           {activeTab === 'neuro_symbolic' && (
-            <div className="space-y-6">
+            <div key="tab-neuro" className="space-y-6 animate-fade-in">
               {/* Executive Innovation Thesis */}
               <div className="p-5 rounded-2xl bg-white border border-purple-200 space-y-3 shadow-sm">
                 <div className="flex items-center justify-between border-b border-purple-100 pb-2.5">
@@ -599,15 +599,15 @@ export const AnalyticsModal: React.FC<AnalyticsModalProps> = ({
             </div>
           )}
 
-          {/* TAB 3: 25-SCENARIO MONTE CARLO STRESS AUDIT */}
+          {/* TAB 3: 25-SCENARIO CRISIS RESILIENCE & CHAOS AUDIT */}
           {activeTab === 'monte_carlo' && (
-            <div className="space-y-6">
+            <div key="tab-chaos" className="space-y-6 animate-fade-in">
               {/* Trigger Control Bar */}
               <div className="p-5 rounded-2xl bg-white border border-black/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
                 <div>
                   <h3 className="text-xs sm:text-sm font-black uppercase tracking-wide text-[#14170F] flex items-center gap-2">
                     <Zap className="w-5 h-5 text-sky-700" />
-                    <span>In-Memory Monte Carlo Crisis Vulnerability Fuzzer</span>
+                    <span>In-Memory Crisis Resilience & Chaos Vulnerability Fuzzer</span>
                   </h3>
                   <p className="text-xs sm:text-sm text-[#14170F]/70 mt-1">
                     Simulates 25 randomized permutations of route delays (+30 to +180m) and supplier stock drops (10% to 40%) in under 100ms.
@@ -627,7 +627,7 @@ export const AnalyticsModal: React.FC<AnalyticsModalProps> = ({
                   ) : (
                     <>
                       <Zap className="w-4 h-4 text-[#14170F]" />
-                      <span>Run 25-Scenario Stress Audit</span>
+                      <span>Run 25-Scenario Crisis Stress Audit</span>
                     </>
                   )}
                 </button>
@@ -700,7 +700,7 @@ export const AnalyticsModal: React.FC<AnalyticsModalProps> = ({
                   <div className="p-5 rounded-2xl bg-white border border-black/10 space-y-4 shadow-sm">
                     <div className="flex items-center justify-between border-b border-black/5 pb-2.5">
                       <span className="text-xs sm:text-sm font-black uppercase tracking-wide text-[#14170F]">
-                        Monte Carlo Perturbation Matrix (25 Random Permutations)
+                        Crisis Disruption Perturbation Matrix (25 Stochastic Permutations)
                       </span>
                       <span className="text-xs font-mono font-bold text-[#14170F]/60">
                         Route Delays (+30-180m) & Stock Drops (10-40%)

@@ -178,18 +178,7 @@ export function App() {
       .then(r => r.json())
       .then(data => {
         if (data.scenarios && data.scenarios.length > 0) {
-          const seen = new Set<string>();
-          const uniqueScenarios: ScenarioMeta[] = [];
-          for (const s of data.scenarios) {
-            if (!seen.has(s.id)) {
-              seen.add(s.id);
-              uniqueScenarios.push({
-                ...s,
-                name: (s.name || '').replace(/â€”|—|–/g, '-').replace(/\s*-\s*/g, ' - '),
-              });
-            }
-          }
-          setScenarios(uniqueScenarios);
+          setScenarios(data.scenarios);
           setServerOnline(true);
         }
       })
@@ -650,8 +639,8 @@ export function App() {
   };
 
   return (
-    <div className="h-screen w-full flex flex-col bg-[#F8F9F5] text-[#14170F] overflow-hidden font-sans select-none relative">
-      {/* 0. Full-Bleed Animated Abstract Network Background */}
+    <div className="min-h-screen w-full flex flex-col bg-[#F8F9F5] text-[#14170F] overflow-y-auto font-sans select-none relative">
+      {/* 0. Full-Bleed Animated Abstract Network Background (Subtle Organic Pulses) */}
       <NetworkBackground opacity={0.18} interactive={true} />
 
       {/* 1. Header Navigation & Control Bar with 3-Role POV Switcher */}
@@ -671,7 +660,6 @@ export function App() {
         onOpenAnalytics={() => setIsAnalyticsOpen(true)}
         onOpenCgiAccelerator={() => setIsCgiAcceleratorOpen(true)}
         onOpenGovernance={() => setIsGovernanceOpen(true)}
-        onStartTour={() => setIsTourGuideOpen(true)}
         onToggleHero={() => setIsHeroOpen(true)}
         domainPack={domainPack}
         onSelectDomainPack={handleSelectDomainPack}
@@ -701,9 +689,9 @@ export function App() {
 
       {/* 2. Main Role-Based Content Area */}
       {rolePOV === 'coordinator' && (
-        <main className="flex-1 min-h-0 grid grid-cols-12 p-3 sm:p-4 lg:p-5 gap-4 relative z-10 w-full max-w-[1920px] mx-auto overflow-hidden">
+        <main key="role-coordinator" className="flex-1 grid grid-cols-12 p-6 gap-6 pb-24 relative z-10 w-full max-w-[1920px] mx-auto animate-fade-in">
           {/* Left/Center: Geo-Map vs Topology Graph with View Switcher */}
-          <section className="col-span-12 lg:col-span-8 h-full min-h-0 relative rounded-3xl border border-black/10 bg-white/90 backdrop-blur-md shadow-sm overflow-hidden flex flex-col">
+          <section className="col-span-12 xl:col-span-8 min-w-0 h-[640px] xl:h-[760px] max-h-[760px] relative rounded-3xl border border-black/10 bg-white/90 backdrop-blur-md shadow-sm overflow-hidden flex flex-col">
             {/* View Sub-Toggle Header */}
             <div className="h-14 px-6 bg-white/90 border-b border-black/10 flex items-center justify-between shrink-0 z-10 backdrop-blur-md">
               <div className="flex items-center gap-3">
@@ -741,42 +729,45 @@ export function App() {
               </span>
             </div>
 
-            {/* Map Canvas Body */}
-            <div className="flex-1 min-h-0 relative overflow-hidden">
+            {/* Map Canvas Body with Smooth View Cross-Fade */}
+            <div className="flex-1 relative overflow-hidden min-h-[580px]">
               {coordinatorView === 'geomap' ? (
-                <BengaluruGeoMap
-                  scenarioId={currentScenarioId}
-                  activeHospitals={hospitals}
-                  activeSuppliers={suppliers}
-                  activeRoutes={routes}
-                  simulationMinute={simulationMinute}
-                  registryHospitals={registryHospitals}
-                  selectedFacilityId={selectedFacilityId}
-                  onSelectHospital={(id) => {
-                    setSelectedHospitalId(id);
-                    setSelectedFacilityId(id);
-                    const h = hospitals.find(x => x.id === id);
-                    if (h) setSelectedEntity({ type: 'hospital', data: h });
-                  }}
-                  onSelectSupplier={(id) => {
-                    setSelectedSupplierId(id);
-                    const s = suppliers.find(x => x.id === id);
-                    if (s) setSelectedEntity({ type: 'supplier', data: s });
-                  }}
-                />
+                <div key="view-geomap" className="w-full h-full animate-fade-in">
+                  <BengaluruGeoMap
+                    activeHospitals={hospitals}
+                    activeSuppliers={suppliers}
+                    activeRoutes={routes}
+                    simulationMinute={simulationMinute}
+                    registryHospitals={registryHospitals}
+                    selectedFacilityId={selectedFacilityId}
+                    onSelectHospital={(id) => {
+                      setSelectedHospitalId(id);
+                      setSelectedFacilityId(id);
+                      const h = hospitals.find(x => x.id === id);
+                      if (h) setSelectedEntity({ type: 'hospital', data: h });
+                    }}
+                    onSelectSupplier={(id) => {
+                      setSelectedSupplierId(id);
+                      const s = suppliers.find(x => x.id === id);
+                      if (s) setSelectedEntity({ type: 'supplier', data: s });
+                    }}
+                  />
+                </div>
               ) : (
-                <TopologyGraph
-                  hospitals={hospitals}
-                  suppliers={suppliers}
-                  routes={routes}
-                  simulationMinute={simulationMinute}
-                />
+                <div key="view-topology" className="w-full h-full animate-fade-in">
+                  <TopologyGraph
+                    hospitals={hospitals}
+                    suppliers={suppliers}
+                    routes={routes}
+                    simulationMinute={simulationMinute}
+                  />
+                </div>
               )}
             </div>
           </section>
 
           {/* Right Column: Live Math Panels vs Agent Activity Feed vs Facility Directory */}
-          <section className="col-span-12 lg:col-span-4 h-full min-h-0 overflow-hidden flex flex-col rounded-3xl border border-black/10 bg-white/90 backdrop-blur-md shadow-sm">
+          <section className="col-span-12 xl:col-span-4 min-w-0 h-[640px] xl:h-[760px] max-h-[760px] overflow-hidden flex flex-col rounded-3xl border border-black/10 bg-white/90 backdrop-blur-md shadow-sm">
             {/* Right Sub-Header Tabs */}
             <div className="h-14 px-4 bg-white/90 border-b border-black/10 flex items-center justify-between shrink-0 backdrop-blur-md">
               <div className="flex items-center gap-1.5 bg-black/5 border border-black/8 rounded-full p-1">
@@ -820,49 +811,55 @@ export function App() {
               </span>
             </div>
 
-            {/* Right Column Content */}
+            {/* Right Column Content with Self-Contained Scroll & Smooth Tab Cross-Fade */}
             <div className="flex-1 min-h-0 overflow-hidden p-2 flex flex-col">
               {coordinatorRightTab === 'math' && (
-                <LiveMathPanels
-                  hospitals={hospitals}
-                  suppliers={suppliers}
-                  simulationMinute={simulationMinute}
-                  hospitalRequests={hospitalRequests}
-                  onSelectHospital={(id) => {
-                    setSelectedHospitalId(id);
-                    setSelectedFacilityId(id);
-                    const h = hospitals.find(x => x.id === id);
-                    if (h) setSelectedEntity({ type: 'hospital', data: h });
-                  }}
-                  onSelectSupplier={(id) => {
-                    setSelectedSupplierId(id);
-                    const s = suppliers.find(x => x.id === id);
-                    if (s) setSelectedEntity({ type: 'supplier', data: s });
-                  }}
-                />
+                <div key="tab-math" className="h-full flex flex-col min-h-0 animate-fade-in">
+                  <LiveMathPanels
+                    hospitals={hospitals}
+                    suppliers={suppliers}
+                    simulationMinute={simulationMinute}
+                    hospitalRequests={hospitalRequests}
+                    onSelectHospital={(id) => {
+                      setSelectedHospitalId(id);
+                      setSelectedFacilityId(id);
+                      const h = hospitals.find(x => x.id === id);
+                      if (h) setSelectedEntity({ type: 'hospital', data: h });
+                    }}
+                    onSelectSupplier={(id) => {
+                      setSelectedSupplierId(id);
+                      const s = suppliers.find(x => x.id === id);
+                      if (s) setSelectedEntity({ type: 'supplier', data: s });
+                    }}
+                  />
+                </div>
               )}
               {coordinatorRightTab === 'feed' && (
-                <AgentActivityFeed
-                  events={events}
-                  isSimulating={isSimulating}
-                  simulationMinute={simulationMinute}
-                />
+                <div key="tab-feed" className="h-full flex flex-col min-h-0 animate-fade-in">
+                  <AgentActivityFeed
+                    events={events}
+                    isSimulating={isSimulating}
+                    simulationMinute={simulationMinute}
+                  />
+                </div>
               )}
               {coordinatorRightTab === 'directory' && (
-                <FacilityDirectoryPanel
-                  registryHospitals={registryHospitals}
-                  activeHospitals={hospitals}
-                  selectedFacilityId={selectedFacilityId}
-                  onLocateFacility={(facilityId) => {
-                    setSelectedFacilityId(facilityId);
-                    setCoordinatorView('geomap');
-                  }}
-                  onInspectFacilityPOV={(facilityId) => {
-                    setSelectedHospitalId(facilityId);
-                    setSelectedFacilityId(facilityId);
-                    setRolePOV('hospital');
-                  }}
-                />
+                <div key="tab-directory" className="h-full flex flex-col min-h-0 animate-fade-in">
+                  <FacilityDirectoryPanel
+                    registryHospitals={registryHospitals}
+                    activeHospitals={hospitals}
+                    selectedFacilityId={selectedFacilityId}
+                    onLocateFacility={(facilityId) => {
+                      setSelectedFacilityId(facilityId);
+                      setCoordinatorView('geomap');
+                    }}
+                    onInspectFacilityPOV={(facilityId) => {
+                      setSelectedHospitalId(facilityId);
+                      setSelectedFacilityId(facilityId);
+                      setRolePOV('hospital');
+                    }}
+                  />
+                </div>
               )}
             </div>
           </section>
@@ -871,7 +868,7 @@ export function App() {
 
       {/* Hospital Portal POV */}
       {rolePOV === 'hospital' && (
-        <main className="flex-1 min-h-0 overflow-y-auto flex flex-col pb-20">
+        <main key="role-hospital" className="flex-1 overflow-hidden flex flex-col pb-11 animate-fade-in">
           <HospitalPortalView
             scenarioId={currentScenarioId}
             activeHospitals={hospitals}
@@ -891,7 +888,7 @@ export function App() {
 
       {/* Supplier Depot POV */}
       {rolePOV === 'supplier' && (
-        <main className="flex-1 min-h-0 overflow-y-auto flex flex-col pb-20">
+        <main key="role-supplier" className="flex-1 overflow-hidden flex flex-col pb-11 animate-fade-in">
           <SupplierDepotView
             activeSuppliers={suppliers}
             activeRoutes={routes}

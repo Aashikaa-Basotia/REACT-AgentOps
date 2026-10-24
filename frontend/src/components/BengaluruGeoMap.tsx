@@ -111,9 +111,18 @@ export const BengaluruGeoMap: React.FC<BengaluruGeoMapProps> = ({
     updateMapCoordinates();
 
     // Responsive sizing observer: handles container visibility switches (e.g. Geomap vs Topology)
-    const resizeObserver = new ResizeObserver(() => {
-      if (mapInstanceRef.current) {
-        mapInstanceRef.current.invalidateSize({ debounceMoveend: true });
+    let lastW = 0;
+    let lastH = 0;
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const { width, height } = entry.contentRect;
+        if (Math.abs(width - lastW) > 3 || Math.abs(height - lastH) > 3) {
+          lastW = width;
+          lastH = height;
+          if (mapInstanceRef.current) {
+            mapInstanceRef.current.invalidateSize({ debounceMoveend: true });
+          }
+        }
       }
     });
     resizeObserver.observe(mapContainerRef.current);

@@ -91,7 +91,7 @@ const SCENARIO_COORDINATOR_GUIDANCE: Record<string, CoordinatorGuidance> = {
     alternativeOptions: 'Reject if military mobile oxygen generation units are arriving on-site to take over acute facilities.',
   },
   'SC-07': {
-    situation: 'High-precision EUV wafer fabrication facilities require uninterrupted nitrogen/argon cryogenic supply to prevent multi-crore fab chamber shutdown and wafer contamination.',
+    situation: 'High-precision EUV wafer fabrication facilities require uninterrupted nitrogen/argon cryogenic supply to prevent multi-crore rupee fab chamber shutdown and wafer contamination.',
     threatLevel: 'HIGH',
     aiProposalSummary: 'Staged precision delivery from Hoskote depot and regional partners directly to Whitefield cleanrooms, maintaining zero stockout margin and strict lot traceability.',
     whyThisPlan: 'Optimizes transit windows to avoid peak freight congestion and maintains continuous positive purge pressure in wafer fab tools.',
@@ -268,18 +268,24 @@ export const HumanApprovalModal: React.FC<HumanApprovalModalProps> = ({
             </div>
 
             {/* Prescribed Action Banner */}
-            <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 flex flex-col md:flex-row md:items-center justify-between gap-3">
-              <div className="space-y-1">
-                <span className="text-xs font-black uppercase tracking-wider text-emerald-800 block">
-                  Prescribed Coordinator Decision
-                </span>
-                <p className="text-xs sm:text-sm text-emerald-950 font-bold">
+            <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 space-y-3">
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0" />
+                  <span className="text-xs font-black uppercase tracking-wider text-emerald-800">
+                    Prescribed Coordinator Decision
+                  </span>
+                </div>
+                <p className="text-xs sm:text-sm text-emerald-950 font-bold leading-relaxed">
                   {guidance.recommendedAction}
                 </p>
               </div>
-              <div className="text-xs text-[#14170F]/70 italic md:text-right shrink-0">
-                {guidance.alternativeOptions}
-              </div>
+              {guidance.alternativeOptions && (
+                <div className="pt-2 border-t border-emerald-200/60 flex items-start gap-2 text-xs text-[#14170F]/75">
+                  <span className="font-bold text-emerald-900 shrink-0">Contingency Option:</span>
+                  <span className="italic leading-relaxed">{guidance.alternativeOptions}</span>
+                </div>
+              )}
             </div>
           </div>
 

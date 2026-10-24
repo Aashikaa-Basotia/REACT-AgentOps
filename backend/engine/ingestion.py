@@ -161,6 +161,10 @@ def _extract_with_gemini(raw_text: str, source_id: str, api_key: str) -> dict[st
         extracted = json.loads(candidate)
         extracted["raw_message"] = raw_text
         extracted["extraction_mode"] = "gemini_flash"
+        # In crisis logistics, waterlogging or congestion implies an active transit delay
+        text_lower = raw_text.lower()
+        if extracted.get("delay_minutes", 0) == 0 and ("water" in text_lower or "congestion" in text_lower):
+            extracted["delay_minutes"] = 15
         return extracted
 
 

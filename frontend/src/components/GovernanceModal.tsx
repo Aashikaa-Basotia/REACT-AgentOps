@@ -225,8 +225,8 @@ export const GovernanceModal: React.FC<GovernanceModalProps> = ({
               ))}
             </div>
 
-            {/* Selected Role Capabilities */}
-            <div className="p-4 rounded-xl bg-[#F8F9F5] border border-black/10 space-y-4">
+            {/* Selected Role Capabilities with Smooth Transition */}
+            <div key={selectedRole} className="p-4 rounded-xl bg-[#F8F9F5] border border-black/10 space-y-4 animate-fade-in">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-black/5 pb-3">
                 <div>
                   <span className="text-[#14170F] font-black font-mono text-xs sm:text-sm">

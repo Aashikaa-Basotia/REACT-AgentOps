@@ -41,7 +41,7 @@ The Autonomous Invariant Allocation Pattern (AIAP) is a repeatable enterprise so
 Conventional enterprise resource planning (ERP) systems and static Linear Programming (LP) solvers are brittle to real-world chaos:
 - Unstructured, ambiguous communication (field SMS, phone calls, dispatch memos).
 - Fast-moving disruptions (flash floods, route washouts, supplier diversion).
-- High-consequence safety requirements where algorithmic hallucination or overcommitment results in catastrophic loss of life or multi-crore asset scrap.
+- High-consequence safety requirements where algorithmic hallucination or overcommitment results in catastrophic loss of life or multi-crore rupee asset scrap.
 
 ### 3. Neuro-Symbolic Architecture
 AIAP couples probabilistic AI with deterministic formal verification:
@@ -95,7 +95,7 @@ AIAP couples probabilistic AI with deterministic formal verification:
       icon: <Cpu className="w-6 h-6 text-amber-700" />,
       tag: 'LIVE DRILL (SC-07)',
       desc: 'High-purity argon/nitrogen purge gases, photolithography chemicals, and silicon wafer stock for high-density cleanroom fabs.',
-      kpis: ['₹40 Crore wafer scrap loss prevented', 'Zero thermal runway risk', 'Positive tool purge pressure sustained'],
+      kpis: ['₹40 Cr wafer scrap loss prevented', 'Zero thermal runway risk', 'Positive tool purge pressure sustained'],
       active: true,
       onAction: onSwitchToManufacturing,
       actionLabel: 'Load Semiconductor Scenario',
@@ -106,7 +106,7 @@ AIAP couples probabilistic AI with deterministic formal verification:
       icon: <Truck className="w-6 h-6 text-sky-700" />,
       tag: 'REPEATABLE PATTERN READY',
       desc: 'Perishable foods, temperature-sensitive pharmaceuticals, and regional distribution center balancing during transit culvert floods.',
-      kpis: ['32% transit distance reduction', 'Zero spoilage from expired transit windows', 'Automated detour rerouting'],
+      kpis: ['32% corridor transit distance (km) reduction', 'Zero spoilage from expired transit windows', 'Automated detour rerouting'],
       active: false,
     },
     {
