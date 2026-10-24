@@ -22,11 +22,12 @@ export const AgentActivityFeed: React.FC<AgentActivityFeedProps> = ({
   simulationMinute,
 }) => {
   const [actorFilter, setActorFilter] = useState<string>('all');
-  const feedEndRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (isSimulating && feedEndRef.current) {
-      feedEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (isSimulating && scrollContainerRef.current) {
+      // Confined scroll within feed container only to prevent window jitter / map resize
+      scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
     }
   }, [events.length, isSimulating]);
 
@@ -86,7 +87,7 @@ export const AgentActivityFeed: React.FC<AgentActivityFeedProps> = ({
       </div>
 
       {/* Events List */}
-      <div className="flex-1 overflow-y-auto p-3 space-y-2.5">
+      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto p-3 space-y-2.5">
         {filteredEvents.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center text-[#14170F]/50 gap-2 p-6 text-center">
             <Activity className="w-8 h-8 text-[#14170F]/30" />
@@ -101,7 +102,6 @@ export const AgentActivityFeed: React.FC<AgentActivityFeedProps> = ({
             <AgentFeedCard key={ev.id || idx} event={ev} index={idx} />
           ))
         )}
-        <div ref={feedEndRef} />
       </div>
 
       {/* Footer System Status */}

@@ -660,7 +660,6 @@ export function App() {
         onOpenAnalytics={() => setIsAnalyticsOpen(true)}
         onOpenCgiAccelerator={() => setIsCgiAcceleratorOpen(true)}
         onOpenGovernance={() => setIsGovernanceOpen(true)}
-        onStartTour={() => setIsTourGuideOpen(true)}
         onToggleHero={() => setIsHeroOpen(true)}
         domainPack={domainPack}
         onSelectDomainPack={handleSelectDomainPack}
@@ -692,7 +691,7 @@ export function App() {
       {rolePOV === 'coordinator' && (
         <main className="flex-1 grid grid-cols-12 p-6 gap-6 pb-24 relative z-10 w-full max-w-[1920px] mx-auto">
           {/* Left/Center: Geo-Map vs Topology Graph with View Switcher */}
-          <section className="col-span-12 xl:col-span-8 min-h-[640px] xl:min-h-[720px] relative rounded-3xl border border-black/10 bg-white/90 backdrop-blur-md shadow-sm overflow-hidden flex flex-col">
+          <section className="col-span-12 xl:col-span-8 min-w-0 min-h-[640px] xl:min-h-[720px] relative rounded-3xl border border-black/10 bg-white/90 backdrop-blur-md shadow-sm overflow-hidden flex flex-col">
             {/* View Sub-Toggle Header */}
             <div className="h-14 px-6 bg-white/90 border-b border-black/10 flex items-center justify-between shrink-0 z-10 backdrop-blur-md">
               <div className="flex items-center gap-3">
@@ -764,7 +763,7 @@ export function App() {
           </section>
 
           {/* Right Column: Live Math Panels vs Agent Activity Feed vs Facility Directory */}
-          <section className="col-span-12 xl:col-span-4 min-h-[640px] xl:min-h-[720px] overflow-hidden flex flex-col rounded-3xl border border-black/10 bg-white/90 backdrop-blur-md shadow-sm">
+          <section className="col-span-12 xl:col-span-4 min-w-0 min-h-[640px] xl:min-h-[720px] overflow-hidden flex flex-col rounded-3xl border border-black/10 bg-white/90 backdrop-blur-md shadow-sm">
             {/* Right Sub-Header Tabs */}
             <div className="h-14 px-4 bg-white/90 border-b border-black/10 flex items-center justify-between shrink-0 backdrop-blur-md">
               <div className="flex items-center gap-1.5 bg-black/5 border border-black/8 rounded-full p-1">
