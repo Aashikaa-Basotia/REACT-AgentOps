@@ -1,0 +1,186 @@
+{
+  "scenario_id": "SC-03",
+  "title": "Simultaneous Claim on Peenya Stock",
+  "description": "H1 and H2 both submit requests against S1's confirmed stock at the exact same simulated minute. Combined demand (16 batches) exceeds S1's confirmed stock (10 batches), so the reservation service must block the double-booking, commit only what current stock actually supports, and split the remaining demand across S1 and S4 rather than silently over-allocating.",
+  "resource_type": "Liquid Medical Oxygen (LMO) & Cryo-Cylinders",
+  "unit": "Batches",
+  "freshness_window_minutes": 60,
+  "hospitals": [
+    {
+      "id": "H1",
+      "name": "Manipal Hospital Whitefield",
+      "zone": "East Zone",
+      "lat": 12.9592,
+      "lng": 77.7321,
+      "current_stock": 2,
+      "burn_rate_per_hour": 4.0,
+      "requested_batches": 8,
+      "deadline_minutes": 120,
+      "minimum_reserve": 2
+    },
+    {
+      "id": "H2",
+      "name": "Victoria Hospital City Market",
+      "zone": "Central Zone",
+      "lat": 12.9634,
+      "lng": 77.5744,
+      "current_stock": 2,
+      "burn_rate_per_hour": 3.0,
+      "requested_batches": 8,
+      "deadline_minutes": 150,
+      "minimum_reserve": 2
+    },
+    {
+      "id": "H3",
+      "name": "Baptist Hospital Hebbal",
+      "zone": "North Zone",
+      "lat": 13.0358,
+      "lng": 77.5891,
+      "current_stock": 3,
+      "burn_rate_per_hour": 1.5,
+      "requested_batches": 3,
+      "deadline_minutes": 240,
+      "minimum_reserve": 1
+    }
+  ],
+  "suppliers": [
+    {
+      "id": "S1",
+      "name": "Peenya Industrial Cryo-Plant",
+      "zone": "West Zone",
+      "lat": 13.0285,
+      "lng": 77.5197,
+      "confirmed_stock": 10,
+      "reported_stock": 10,
+      "dispatch_trucks_available": 3,
+      "prep_lead_time_minutes": 15
+    },
+    {
+      "id": "S2",
+      "name": "Hoskote Liquid Oxygen Depot",
+      "zone": "East Zone",
+      "lat": 13.0722,
+      "lng": 77.7981,
+      "confirmed_stock": 2,
+      "reported_stock": 2,
+      "dispatch_trucks_available": 1,
+      "prep_lead_time_minutes": 20
+    },
+    {
+      "id": "S3",
+      "name": "Bommasandra Air Liquid Hub",
+      "zone": "South Zone",
+      "lat": 12.8160,
+      "lng": 77.6775,
+      "confirmed_stock": 4,
+      "reported_stock": 4,
+      "dispatch_trucks_available": 1,
+      "prep_lead_time_minutes": 15
+    },
+    {
+      "id": "S4",
+      "name": "Yelahanka Industrial Gas Depot",
+      "zone": "North Zone",
+      "lat": 13.1006,
+      "lng": 77.5963,
+      "confirmed_stock": 8,
+      "reported_stock": 8,
+      "dispatch_trucks_available": 2,
+      "prep_lead_time_minutes": 10
+    }
+  ],
+  "routes": [
+    {
+      "id": "R1",
+      "supplier_id": "S1",
+      "hospital_id": "H1",
+      "corridor_name": "Outer Ring Road - Peenya to Whitefield",
+      "travel_time_minutes": 65,
+      "max_capacity_batches": 8,
+      "is_blocked": false,
+      "delay_minutes": 0
+    },
+    {
+      "id": "R2",
+      "supplier_id": "S1",
+      "hospital_id": "H2",
+      "corridor_name": "Magadi & West Arterial Highway",
+      "travel_time_minutes": 45,
+      "max_capacity_batches": 8,
+      "is_blocked": false,
+      "delay_minutes": 0
+    },
+    {
+      "id": "R3",
+      "supplier_id": "S4",
+      "hospital_id": "H1",
+      "corridor_name": "Tumkur-Hebbal Elevated Expressway",
+      "travel_time_minutes": 60,
+      "max_capacity_batches": 6,
+      "is_blocked": false,
+      "delay_minutes": 0
+    },
+    {
+      "id": "R4",
+      "supplier_id": "S4",
+      "hospital_id": "H2",
+      "corridor_name": "Bellary Road - Mekhri Circle Connector",
+      "travel_time_minutes": 40,
+      "max_capacity_batches": 6,
+      "is_blocked": false,
+      "delay_minutes": 0
+    },
+    {
+      "id": "R5",
+      "supplier_id": "S4",
+      "hospital_id": "H3",
+      "corridor_name": "Bellary Road - Hebbal Expressway",
+      "travel_time_minutes": 25,
+      "max_capacity_batches": 6,
+      "is_blocked": false,
+      "delay_minutes": 0
+    },
+    {
+      "id": "R6",
+      "supplier_id": "S2",
+      "hospital_id": "H1",
+      "corridor_name": "Old Madras Road - Whitefield Spur",
+      "travel_time_minutes": 35,
+      "max_capacity_batches": 4,
+      "is_blocked": false,
+      "delay_minutes": 0
+    },
+    {
+      "id": "R7",
+      "supplier_id": "S3",
+      "hospital_id": "H3",
+      "corridor_name": "Hosur Road Electronic City Flyover",
+      "travel_time_minutes": 70,
+      "max_capacity_batches": 4,
+      "is_blocked": false,
+      "delay_minutes": 0
+    }
+  ],
+  "events": [
+    {
+      "time_minute": 5,
+      "event_type": "supplier_message",
+      "target_id": "S1",
+      "description": "H1 submits a reservation request for 8 batches from S1.",
+      "payload": {
+        "requesting_hospital_id": "H1",
+        "requested_quantity": 8
+      }
+    },
+    {
+      "time_minute": 5,
+      "event_type": "supplier_message",
+      "target_id": "S1",
+      "description": "H2 submits a simultaneous reservation request for 8 batches from S1, at the same simulated minute as H1's request. Combined demand of 16 exceeds S1's confirmed stock of 10.",
+      "payload": {
+        "requesting_hospital_id": "H2",
+        "requested_quantity": 8
+      }
+    }
+  ]
+}

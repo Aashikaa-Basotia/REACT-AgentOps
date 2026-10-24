@@ -1,0 +1,173 @@
+{
+  "scenario_id": "SC-05",
+  "title": "Stale Stock Report at Bommasandra Hub",
+  "description": "S3's last confirmed stock observation is 75 minutes old, beyond the scenario's freshness_window_minutes of 60. The displayed figure of 8 batches can still be shown but cannot silently satisfy a reservation condition requiring current confirmation. When the agent re-verifies, it discovers a last-second drop in actual stock, testing whether the system re-checks rather than trusting an expired number.",
+  "resource_type": "Liquid Medical Oxygen (LMO) & Cryo-Cylinders",
+  "unit": "Batches",
+  "freshness_window_minutes": 60,
+  "hospitals": [
+    {
+      "id": "H1",
+      "name": "Manipal Hospital Whitefield",
+      "zone": "East Zone",
+      "lat": 12.9592,
+      "lng": 77.7321,
+      "current_stock": 3,
+      "burn_rate_per_hour": 3.5,
+      "requested_batches": 5,
+      "deadline_minutes": 150,
+      "minimum_reserve": 2
+    },
+    {
+      "id": "H2",
+      "name": "Victoria Hospital City Market",
+      "zone": "Central Zone",
+      "lat": 12.9634,
+      "lng": 77.5744,
+      "current_stock": 3,
+      "burn_rate_per_hour": 3.0,
+      "requested_batches": 7,
+      "deadline_minutes": 170,
+      "minimum_reserve": 2
+    },
+    {
+      "id": "H3",
+      "name": "Baptist Hospital Hebbal",
+      "zone": "North Zone",
+      "lat": 13.0358,
+      "lng": 77.5891,
+      "current_stock": 4,
+      "burn_rate_per_hour": 1.5,
+      "requested_batches": 3,
+      "deadline_minutes": 240,
+      "minimum_reserve": 1
+    }
+  ],
+  "suppliers": [
+    {
+      "id": "S1",
+      "name": "Peenya Industrial Cryo-Plant",
+      "zone": "West Zone",
+      "lat": 13.0285,
+      "lng": 77.5197,
+      "confirmed_stock": 5,
+      "reported_stock": 5,
+      "dispatch_trucks_available": 2,
+      "prep_lead_time_minutes": 15,
+      "stock_observed_at_minute": 0
+    },
+    {
+      "id": "S2",
+      "name": "Hoskote Liquid Oxygen Depot",
+      "zone": "East Zone",
+      "lat": 13.0722,
+      "lng": 77.7981,
+      "confirmed_stock": 6,
+      "reported_stock": 6,
+      "dispatch_trucks_available": 2,
+      "prep_lead_time_minutes": 20,
+      "stock_observed_at_minute": 0
+    },
+    {
+      "id": "S3",
+      "name": "Bommasandra Air Liquid Hub",
+      "zone": "South Zone",
+      "lat": 12.8160,
+      "lng": 77.6775,
+      "confirmed_stock": 8,
+      "reported_stock": 8,
+      "dispatch_trucks_available": 2,
+      "prep_lead_time_minutes": 15,
+      "stock_observed_at_minute": -75,
+      "note": "Last confirmed observation is 75 minutes stale relative to scenario start, exceeding the 60-minute freshness window."
+    },
+    {
+      "id": "S4",
+      "name": "Yelahanka Industrial Gas Depot",
+      "zone": "North Zone",
+      "lat": 13.1006,
+      "lng": 77.5963,
+      "confirmed_stock": 7,
+      "reported_stock": 7,
+      "dispatch_trucks_available": 2,
+      "prep_lead_time_minutes": 10,
+      "stock_observed_at_minute": 0
+    }
+  ],
+  "routes": [
+    {
+      "id": "R1",
+      "supplier_id": "S1",
+      "hospital_id": "H1",
+      "corridor_name": "Outer Ring Road - Peenya to Whitefield",
+      "travel_time_minutes": 65,
+      "max_capacity_batches": 6,
+      "is_blocked": false,
+      "delay_minutes": 0
+    },
+    {
+      "id": "R2",
+      "supplier_id": "S2",
+      "hospital_id": "H1",
+      "corridor_name": "Old Madras Road - Whitefield Spur",
+      "travel_time_minutes": 35,
+      "max_capacity_batches": 6,
+      "is_blocked": false,
+      "delay_minutes": 0
+    },
+    {
+      "id": "R3",
+      "supplier_id": "S3",
+      "hospital_id": "H2",
+      "corridor_name": "Hosur Road - Silk Board Flyover",
+      "travel_time_minutes": 50,
+      "max_capacity_batches": 8,
+      "is_blocked": false,
+      "delay_minutes": 0
+    },
+    {
+      "id": "R4",
+      "supplier_id": "S4",
+      "hospital_id": "H3",
+      "corridor_name": "Bellary Road - Hebbal Expressway",
+      "travel_time_minutes": 25,
+      "max_capacity_batches": 6,
+      "is_blocked": false,
+      "delay_minutes": 0
+    },
+    {
+      "id": "R5",
+      "supplier_id": "S4",
+      "hospital_id": "H2",
+      "corridor_name": "Bellary Road - Mekhri Circle Connector",
+      "travel_time_minutes": 40,
+      "max_capacity_batches": 6,
+      "is_blocked": false,
+      "delay_minutes": 0
+    }
+  ],
+  "events": [
+    {
+      "time_minute": 0,
+      "event_type": "stock_changed",
+      "target_id": "S3",
+      "description": "Scenario opens with S3's stock evidence already past the freshness window, forcing re-verification before any reservation against it is permitted.",
+      "payload": {
+        "confirmed_stock": 8,
+        "stale": true,
+        "age_minutes": 75
+      }
+    },
+    {
+      "time_minute": 45,
+      "event_type": "stock_changed",
+      "target_id": "S3",
+      "description": "Re-verification reveals a last-second drop in actual stock at Bommasandra: only 3 batches remain after an unrecorded local draw-down.",
+      "payload": {
+        "confirmed_stock": 3,
+        "verification_state": "VERIFIED",
+        "reason": "Local draw-down discovered during mandatory re-verification"
+      }
+    }
+  ]
+}

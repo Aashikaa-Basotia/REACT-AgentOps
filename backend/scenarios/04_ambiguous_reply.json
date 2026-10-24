@@ -1,0 +1,173 @@
+{
+  "scenario_id": "SC-04",
+  "title": "Unverified Vague Stock Reply from Hoskote Depot",
+  "description": "S2 (Hoskote) opens the scenario with verification_state set to UNVERIFIED and a vague human message reporting roughly 'six batches maybe ready.' No numeric confirmed_stock can be trusted yet. The SupplyAgent must call request_supplier_clarification and obtain a verified figure before any reservation against S2 is permitted.",
+  "resource_type": "Liquid Medical Oxygen (LMO) & Cryo-Cylinders",
+  "unit": "Batches",
+  "freshness_window_minutes": 60,
+  "hospitals": [
+    {
+      "id": "H1",
+      "name": "Manipal Hospital Whitefield",
+      "zone": "East Zone",
+      "lat": 12.9592,
+      "lng": 77.7321,
+      "current_stock": 3,
+      "burn_rate_per_hour": 4.0,
+      "requested_batches": 6,
+      "deadline_minutes": 150,
+      "minimum_reserve": 2
+    },
+    {
+      "id": "H2",
+      "name": "Victoria Hospital City Market",
+      "zone": "Central Zone",
+      "lat": 12.9634,
+      "lng": 77.5744,
+      "current_stock": 4,
+      "burn_rate_per_hour": 3.0,
+      "requested_batches": 5,
+      "deadline_minutes": 180,
+      "minimum_reserve": 2
+    },
+    {
+      "id": "H3",
+      "name": "Baptist Hospital Hebbal",
+      "zone": "North Zone",
+      "lat": 13.0358,
+      "lng": 77.5891,
+      "current_stock": 3,
+      "burn_rate_per_hour": 1.5,
+      "requested_batches": 3,
+      "deadline_minutes": 240,
+      "minimum_reserve": 1
+    }
+  ],
+  "suppliers": [
+    {
+      "id": "S1",
+      "name": "Peenya Industrial Cryo-Plant",
+      "zone": "West Zone",
+      "lat": 13.0285,
+      "lng": 77.5197,
+      "confirmed_stock": 6,
+      "reported_stock": 6,
+      "dispatch_trucks_available": 2,
+      "prep_lead_time_minutes": 15,
+      "verification_state": "VERIFIED"
+    },
+    {
+      "id": "S2",
+      "name": "Hoskote Liquid Oxygen Depot",
+      "zone": "East Zone",
+      "lat": 13.0722,
+      "lng": 77.7981,
+      "confirmed_stock": 0,
+      "reported_stock": 6,
+      "dispatch_trucks_available": 2,
+      "prep_lead_time_minutes": 20,
+      "verification_state": "UNVERIFIED",
+      "last_message": "Six batches maybe ready, will confirm shortly.",
+      "last_message_timestamp_minute": 0
+    },
+    {
+      "id": "S3",
+      "name": "Bommasandra Air Liquid Hub",
+      "zone": "South Zone",
+      "lat": 12.8160,
+      "lng": 77.6775,
+      "confirmed_stock": 8,
+      "reported_stock": 8,
+      "dispatch_trucks_available": 2,
+      "prep_lead_time_minutes": 15,
+      "verification_state": "VERIFIED"
+    },
+    {
+      "id": "S4",
+      "name": "Yelahanka Industrial Gas Depot",
+      "zone": "North Zone",
+      "lat": 13.1006,
+      "lng": 77.5963,
+      "confirmed_stock": 8,
+      "reported_stock": 8,
+      "dispatch_trucks_available": 2,
+      "prep_lead_time_minutes": 10,
+      "verification_state": "VERIFIED"
+    }
+  ],
+  "routes": [
+    {
+      "id": "R1",
+      "supplier_id": "S1",
+      "hospital_id": "H1",
+      "corridor_name": "Outer Ring Road - Peenya to Whitefield",
+      "travel_time_minutes": 65,
+      "max_capacity_batches": 8,
+      "is_blocked": false,
+      "delay_minutes": 0
+    },
+    {
+      "id": "R2",
+      "supplier_id": "S2",
+      "hospital_id": "H1",
+      "corridor_name": "Old Madras Road - Whitefield Spur",
+      "travel_time_minutes": 35,
+      "max_capacity_batches": 6,
+      "is_blocked": false,
+      "delay_minutes": 0
+    },
+    {
+      "id": "R3",
+      "supplier_id": "S2",
+      "hospital_id": "H2",
+      "corridor_name": "Outer Ring Road - Bellandur Corridor",
+      "travel_time_minutes": 55,
+      "max_capacity_batches": 6,
+      "is_blocked": false,
+      "delay_minutes": 0
+    },
+    {
+      "id": "R4",
+      "supplier_id": "S3",
+      "hospital_id": "H2",
+      "corridor_name": "Hosur Road - Silk Board Flyover",
+      "travel_time_minutes": 50,
+      "max_capacity_batches": 8,
+      "is_blocked": false,
+      "delay_minutes": 0
+    },
+    {
+      "id": "R5",
+      "supplier_id": "S4",
+      "hospital_id": "H3",
+      "corridor_name": "Bellary Road - Hebbal Expressway",
+      "travel_time_minutes": 25,
+      "max_capacity_batches": 6,
+      "is_blocked": false,
+      "delay_minutes": 0
+    }
+  ],
+  "events": [
+    {
+      "time_minute": 0,
+      "event_type": "supplier_message",
+      "target_id": "S2",
+      "description": "S2 reports an ambiguous, unverified stock message instead of a confirmed figure.",
+      "payload": {
+        "message": "Six batches maybe ready",
+        "verification_state": "UNVERIFIED",
+        "reported_stock": 6
+      }
+    },
+    {
+      "time_minute": 20,
+      "event_type": "stock_changed",
+      "target_id": "S2",
+      "description": "After clarification is requested, S2 confirms an exact figure lower than the vague estimate suggested.",
+      "payload": {
+        "confirmed_stock": 4,
+        "verification_state": "VERIFIED"
+      }
+    }
+  ]
+}

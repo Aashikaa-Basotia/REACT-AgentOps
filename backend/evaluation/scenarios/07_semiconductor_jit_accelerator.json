@@ -1,0 +1,81 @@
+{
+  "id": "SC-07",
+  "name": "Advanced Manufacturing — Semiconductor JIT",
+  "description": "Cross-industry enterprise accelerator: JIT semiconductor wafer distribution across Chennai EV, Pune Battery, and Bengaluru Avionics plants under customs clearance freeze and freight corridor delays.",
+  "freshness_window": 120,
+  "total_simulation_time": 360,
+  "hospitals": [
+    {"id": "H1", "name": "Chennai EV Assembly Plant", "requested_batches": 8, "deadline_minutes": 120, "on_hand_stock": 0, "zone": "Chennai Industrial Corridor", "lat": 13.0827, "lng": 80.2707},
+    {"id": "H2", "name": "Pune Battery Pack Fab", "requested_batches": 8, "deadline_minutes": 180, "on_hand_stock": 0, "zone": "Pune Auto Cluster", "lat": 18.5204, "lng": 73.8567},
+    {"id": "H3", "name": "Bengaluru Avionics Line", "requested_batches": 4, "deadline_minutes": 240, "on_hand_stock": 0, "zone": "Bengaluru Aerospace SEZ", "lat": 13.1986, "lng": 77.7066}
+  ],
+  "suppliers": [
+    {"id": "S1", "name": "Peenya Bonded Wafer Hub", "confirmed_stock": 10, "zone": "Peenya Semiconductor Park", "lat": 13.0285, "lng": 77.5197},
+    {"id": "S2", "name": "Sriperumbudur Chip Packaging Depot", "confirmed_stock": 10, "zone": "Sriperumbudur Electronics Zone", "lat": 12.9675, "lng": 79.9404}
+  ],
+  "routes": [
+    {"id": "R_S1_H1", "supplier_id": "S1", "hospital_id": "H1", "travel_minutes": 60, "capacity_batches": 10, "status": "open", "corridor_name": "NH-48 Golden Quadrilateral Express"},
+    {"id": "R_S1_H2", "supplier_id": "S1", "hospital_id": "H2", "travel_minutes": 90, "capacity_batches": 10, "status": "open", "corridor_name": "Western Industrial Freight Corridor"},
+    {"id": "R_S2_H2", "supplier_id": "S2", "hospital_id": "H2", "travel_minutes": 80, "capacity_batches": 10, "status": "open", "corridor_name": "Trans-Deccan Highway Corridor"},
+    {"id": "R_S2_H3", "supplier_id": "S2", "hospital_id": "H3", "travel_minutes": 100, "capacity_batches": 10, "status": "open", "corridor_name": "Bengaluru-Chennai Industrial Corridor"}
+  ],
+  "events": [
+    {
+      "time": 30,
+      "event_type": "route_delayed",
+      "target_id": "R_S2_H2",
+      "description": "Customs inspection audit freeze stalls shipments at Sriperumbudur Depot. Delivery delayed by 300 minutes.",
+      "params": {
+        "delay_minutes": 300
+      }
+    },
+    {
+      "time": 30,
+      "event_type": "route_delayed",
+      "target_id": "R_S2_H3",
+      "description": "Interstate highway freight bottleneck delays delivery by 300 minutes.",
+      "params": {
+        "delay_minutes": 300
+      }
+    },
+    {
+      "time": 45,
+      "event_type": "supplier_message",
+      "target_id": "S2",
+      "description": "S2 reports partial wafer lot inspection clearance",
+      "params": {
+        "message": "Six wafer lots cleared inspection.",
+        "quantity": 6,
+        "is_ambiguous": true
+      }
+    },
+    {
+      "time": 120,
+      "event_type": "new_route_available",
+      "target_id": "R_ALT_S2_H2",
+      "description": "Green Corridor Customs Fast-Track clearance opens alternate route from S2 to H2. Travel time 50 minutes.",
+      "params": {
+        "route_id": "R_ALT_S2_H2",
+        "supplier_id": "S2",
+        "hospital_id": "H2",
+        "travel_minutes": 50,
+        "capacity_batches": 10,
+        "corridor_name": "Green Corridor Customs Fast-Track"
+      }
+    }
+  ],
+  "supplier_responses": {
+    "S1": [
+      {"trigger": "available", "text": "We have 10 wafer lots confirmed and ready for dispatch.", "quantity": 10, "is_ambiguous": false},
+      {"trigger": "delivery", "text": "Standard shipment via R_S1_H1 takes 60 minutes, R_S1_H2 takes 90 minutes.", "is_ambiguous": false}
+    ],
+    "S2": [
+      {"trigger": "available", "text": "10 wafer lots ready at Sriperumbudur depot.", "quantity": 10, "is_ambiguous": false},
+      {"trigger": "delivery", "text": "Route R_S2_H2 takes 80 minutes, R_S2_H3 takes 100 minutes.", "is_ambiguous": false}
+    ]
+  },
+  "expected_invariants": [
+    {"name": "concurrency_lock_verified", "check_type": "zero_invalid", "description": "No reservation violates inventory conservation invariant As = Qs - sum(qr) >= 0"},
+    {"name": "deterministic_constraints_enforced", "check_type": "feasible", "description": "All committed allocations pass the 7 deterministic verifier checks"}
+  ]
+}

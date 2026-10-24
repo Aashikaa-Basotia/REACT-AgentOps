@@ -1,0 +1,13 @@
+# Phase 1 — Deterministic foundation
+pydantic>=2.0
+pytest>=8.0
+pytest-asyncio>=0.23
+
+# Phase 2 — Agents & API
+fastapi>=0.115
+uvicorn[standard]>=0.30
+openai>=1.50
+websockets>=13.0
+
+# Phase 3 — Solver (optional, graceful fallback if unavailable)
+ortools>=9.10

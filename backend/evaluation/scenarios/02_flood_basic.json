@@ -1,0 +1,83 @@
+{
+  "id": "SC-02",
+  "name": "Flood — S2 Route Blocked",
+  "description": "Flash flooding swamps low-lying Bellandur/Sarjapur transit corridors connecting S2 (Hoskote) at t=30. Facilities compete for S1 (Peenya Cryo-Plant). Alternate bypass route R_ALT_S2_H2 cleared at t=120.",
+  "freshness_window": 60,
+  "total_simulation_time": 360,
+  "hospitals": [
+    {"id": "H1", "name": "Sakra World Hospital", "requested_batches": 8, "deadline_minutes": 120, "on_hand_stock": 0, "zone": "East Zone / Bellandur Outer Ring Road", "lat": 12.9288, "lng": 77.6836},
+    {"id": "H2", "name": "St. John's Medical College Hospital", "requested_batches": 8, "deadline_minutes": 180, "on_hand_stock": 0, "zone": "South-East Zone / Koramangala", "lat": 12.9304, "lng": 77.6186},
+    {"id": "H3", "name": "Apollo Hospitals Bannerghatta", "requested_batches": 4, "deadline_minutes": 240, "on_hand_stock": 0, "zone": "South Zone / Bannerghatta Road", "lat": 12.8926, "lng": 77.5982}
+  ],
+  "suppliers": [
+    {"id": "S1", "name": "Peenya Industrial Cryo-Plant", "confirmed_stock": 10, "zone": "West Zone / Peenya", "lat": 13.0285, "lng": 77.5197},
+    {"id": "S2", "name": "Hoskote Liquid Oxygen Depot", "confirmed_stock": 10, "zone": "East Outer / Hoskote", "lat": 13.0722, "lng": 77.7981}
+  ],
+  "routes": [
+    {"id": "R_S1_H1", "supplier_id": "S1", "hospital_id": "H1", "travel_minutes": 60, "capacity_batches": 10, "status": "open", "corridor_name": "Outer Ring Road - Peenya to Sakra Bellandur Express"},
+    {"id": "R_S1_H2", "supplier_id": "S1", "hospital_id": "H2", "travel_minutes": 90, "capacity_batches": 10, "status": "open", "corridor_name": "West Arterial Highway - Peenya to St. John's Koramangala"},
+    {"id": "R_S2_H2", "supplier_id": "S2", "hospital_id": "H2", "travel_minutes": 80, "capacity_batches": 10, "status": "open", "corridor_name": "Sarjapur Road - Hoskote to St. John's Flood Corridor"},
+    {"id": "R_S2_H3", "supplier_id": "S2", "hospital_id": "H3", "travel_minutes": 100, "capacity_batches": 10, "status": "open", "corridor_name": "Bannerghatta Link - Hoskote to Apollo Flood Corridor"}
+  ],
+  "events": [
+    {
+      "time": 30,
+      "event_type": "route_delayed",
+      "target_id": "R_S2_H2",
+      "description": "Flash flood swamps Bellandur corridor near S2. Delivery delayed by 300 minutes (arrival now 380m, misses 180m deadline)",
+      "params": {
+        "delay_minutes": 300
+      }
+    },
+    {
+      "time": 30,
+      "event_type": "route_delayed",
+      "target_id": "R_S2_H3",
+      "description": "Flood water blocks culvert on Sarjapur-Hebbal corridor. Delivery delayed by 300 minutes (arrival now 400m, misses 240m deadline)",
+      "params": {
+        "delay_minutes": 300
+      }
+    },
+    {
+      "time": 45,
+      "event_type": "supplier_message",
+      "target_id": "S2",
+      "description": "S2 sends an ambiguous availability message",
+      "params": {
+        "message": "Six ready.",
+        "quantity": 6,
+        "is_ambiguous": true
+      }
+    },
+    {
+      "time": 120,
+      "event_type": "new_route_available",
+      "target_id": "R_ALT_S2_H2",
+      "description": "BBMP disaster management clears Old Airport Elevated Bypass R_ALT_S2_H2 (travel time: 55 min, capacity: 6 batches)",
+      "params": {
+        "route_id": "R_ALT_S2_H2",
+        "supplier_id": "S2",
+        "hospital_id": "H2",
+        "travel_minutes": 55,
+        "capacity_batches": 6,
+        "corridor_name": "Old Airport Elevated Bypass Corridor"
+      }
+    }
+  ],
+  "supplier_responses": {
+    "S1": [
+      {"trigger": "available", "text": "We have 10 batches confirmed and available for delivery.", "quantity": 10, "is_ambiguous": false},
+      {"trigger": "delivery", "text": "Deliveries to H1 take 60 minutes via R_S1_H1, to H2 take 90 minutes via R_S1_H2.", "is_ambiguous": false}
+    ],
+    "S2": [
+      {"trigger": "available", "text": "Six batches ready now. Four more tomorrow morning.", "quantity": 6, "is_ambiguous": true},
+      {"trigger": "delivery", "text": "Road to H2 flooded via R_S2_H2. Delivery via R_ALT_S2_H2 will take 55 minutes once opened.", "arrival_minutes": 175, "is_ambiguous": false},
+      {"trigger": "collection", "text": "You can collect 6 batches directly from Hoskote depot if you have high-clearance cryogenic tankers.", "quantity": 6, "is_ambiguous": false}
+    ]
+  },
+  "expected_invariants": [
+    {"name": "no_invalid_commitments", "check_type": "zero_invalid", "description": "No reservation violates constraints (zero overcommitment of S1, no delivery through blocked route)"},
+    {"name": "exact_unmet_demand", "check_type": "exact_unmet", "params": {"expected_unmet": 4}, "description": "Exactly 4 batches unmet (H3 cannot be reached; H1 gets 8, H2 gets 2+6=8, total met=16)"},
+    {"name": "partial_allocation_made", "check_type": "minimum_met", "params": {"min_batches": 10}, "description": "At least S1's 10 batches are allocated despite the flood"}
+  ]
+}

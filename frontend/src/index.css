@@ -1,0 +1,159 @@
+@import '@xyflow/react/dist/style.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-base: #F3F4F0;
+  --panel-glass: rgba(255, 255, 255, 0.76);
+  --panel-glass-border: rgba(255, 255, 255, 0.65);
+  --panel-dark: rgba(15, 23, 20, 0.88);
+  --accent-primary: #8FD13F;
+  --accent-map-line: #3E6B4F;
+  --status-warning: #E8A23D;
+  --status-critical: #D9534F;
+  --text-primary: #14170F;
+  --text-inverse: #F3F4F0;
+  --text-muted: rgba(20, 23, 15, 0.58);
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Variable Bold Display Headline Font (Outfit - 700/800/900) */
+h1, h2, h3, h4, .font-display {
+  font-family: 'Outfit', 'Space Grotesk', -apple-system, sans-serif;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+}
+
+/* High-Impact Stat / Numeric Value Typography */
+.font-stat {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+/* Tabular figures for monospace data (stock counts, timers, coords) */
+.font-mono {
+  font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+  font-feature-settings: 'tnum' 1, 'zero' 1;
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.74);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 8px 32px 0 rgba(20, 23, 15, 0.08);
+}
+
+.glass-panel-subtle {
+  background: rgba(255, 255, 255, 0.52);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 20px 0 rgba(20, 23, 15, 0.05);
+}
+
+.glass-panel-dark {
+  background: rgba(15, 23, 20, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 12px 40px -4px rgba(0, 0, 0, 0.35);
+  color: #F3F4F0;
+}
+
+/* Custom Scrollbars in warm tones */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(20, 23, 15, 0.03);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(20, 23, 15, 0.18);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(20, 23, 15, 0.32);
+}
+
+/* React Flow Canvas Customization for Light Glass */
+.react-flow__background {
+  background-color: transparent !important;
+}
+
+.react-flow__controls {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(20, 23, 15, 0.08) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06) !important;
+  overflow: hidden;
+}
+
+.react-flow__controls-button {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(20, 23, 15, 0.08) !important;
+  fill: #14170F !important;
+}
+
+.react-flow__controls-button:hover {
+  background: rgba(143, 209, 63, 0.15) !important;
+  fill: #14170F !important;
+}
+
+.react-flow__attribution {
+  display: none !important;
+}
+
+/* Stagger Animation Delays */
+.stagger-1 { animation-delay: 50ms; }
+.stagger-2 { animation-delay: 100ms; }
+.stagger-3 { animation-delay: 150ms; }
+.stagger-4 { animation-delay: 200ms; }
+.stagger-5 { animation-delay: 250ms; }
+.stagger-6 { animation-delay: 300ms; }
+
+/* Micro-Interaction & Custom Cursor Utilities */
+.interactive-target {
+  cursor: pointer;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(143, 209, 63, 0.25), 0 0 30px rgba(62, 107, 79, 0.12);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(143, 209, 63, 0.45), 0 0 45px rgba(62, 107, 79, 0.22);
+  }
+}
+
+.pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+@keyframes edgeParticleMove {
+  from {
+    stroke-dashoffset: 24;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-edge-flow {
+  stroke-dasharray: 6 6;
+  animation: edgeParticleMove 1s linear infinite;
+}
+

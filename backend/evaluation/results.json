@@ -1,0 +1,192 @@
+{
+  "timestamp": "2026-10-23T15:23:23.081370+00:00",
+  "total_evaluations": 18,
+  "results": [
+    {
+      "scenario_id": "SC-01",
+      "approach": "fixed_rules",
+      "tool_calls": 12,
+      "invalid_proposals": 0,
+      "unmet_batches": 0,
+      "integrity_invariant_violations": 0,
+      "runtime_ms": 0.59,
+      "scenario_name": "Baseline \u00e2\u20ac\u201d No Disruption"
+    },
+    {
+      "scenario_id": "SC-01",
+      "approach": "single_agent",
+      "tool_calls": 13,
+      "invalid_proposals": 0,
+      "unmet_batches": 0,
+      "integrity_invariant_violations": 0,
+      "runtime_ms": 0.62,
+      "scenario_name": "Baseline \u00e2\u20ac\u201d No Disruption"
+    },
+    {
+      "scenario_id": "SC-01",
+      "approach": "multi_agent",
+      "tool_calls": 12,
+      "invalid_proposals": 0,
+      "unmet_batches": 0,
+      "integrity_invariant_violations": 0,
+      "runtime_ms": 0.99,
+      "scenario_name": "Baseline \u00e2\u20ac\u201d No Disruption"
+    },
+    {
+      "scenario_id": "SC-02",
+      "approach": "fixed_rules",
+      "tool_calls": 12,
+      "invalid_proposals": 0,
+      "unmet_batches": 10,
+      "integrity_invariant_violations": 0,
+      "runtime_ms": 0.27,
+      "scenario_name": "Flood \u00e2\u20ac\u201d S2 Route Blocked"
+    },
+    {
+      "scenario_id": "SC-02",
+      "approach": "single_agent",
+      "tool_calls": 14,
+      "invalid_proposals": 1,
+      "unmet_batches": 10,
+      "integrity_invariant_violations": 0,
+      "runtime_ms": 0.36,
+      "scenario_name": "Flood \u00e2\u20ac\u201d S2 Route Blocked"
+    },
+    {
+      "scenario_id": "SC-02",
+      "approach": "multi_agent",
+      "tool_calls": 12,
+      "invalid_proposals": 0,
+      "unmet_batches": 10,
+      "integrity_invariant_violations": 0,
+      "runtime_ms": 0.51,
+      "scenario_name": "Flood \u00e2\u20ac\u201d S2 Route Blocked"
+    },
+    {
+      "scenario_id": "SC-03",
+      "approach": "fixed_rules",
+      "tool_calls": 12,
+      "invalid_proposals": 0,
+      "unmet_batches": 10,
+      "integrity_invariant_violations": 0,
+      "runtime_ms": 0.56,
+      "scenario_name": "Double Booking \u00e2\u20ac\u201d Competing Reservations"
+    },
+    {
+      "scenario_id": "SC-03",
+      "approach": "single_agent",
+      "tool_calls": 14,
+      "invalid_proposals": 1,
+      "unmet_batches": 10,
+      "integrity_invariant_violations": 0,
+      "runtime_ms": 0.3,
+      "scenario_name": "Double Booking \u00e2\u20ac\u201d Competing Reservations"
+    },
+    {
+      "scenario_id": "SC-03",
+      "approach": "multi_agent",
+      "tool_calls": 12,
+      "invalid_proposals": 0,
+      "unmet_batches": 10,
+      "integrity_invariant_violations": 0,
+      "runtime_ms": 0.48,
+      "scenario_name": "Double Booking \u00e2\u20ac\u201d Competing Reservations"
+    },
+    {
+      "scenario_id": "SC-04",
+      "approach": "fixed_rules",
+      "tool_calls": 12,
+      "invalid_proposals": 0,
+      "unmet_batches": 0,
+      "integrity_invariant_violations": 0,
+      "runtime_ms": 0.85,
+      "scenario_name": "Ambiguous Supplier Reply"
+    },
+    {
+      "scenario_id": "SC-04",
+      "approach": "single_agent",
+      "tool_calls": 14,
+      "invalid_proposals": 1,
+      "unmet_batches": 4,
+      "integrity_invariant_violations": 0,
+      "runtime_ms": 1.42,
+      "scenario_name": "Ambiguous Supplier Reply"
+    },
+    {
+      "scenario_id": "SC-04",
+      "approach": "multi_agent",
+      "tool_calls": 13,
+      "invalid_proposals": 0,
+      "unmet_batches": 0,
+      "integrity_invariant_violations": 0,
+      "runtime_ms": 1.03,
+      "scenario_name": "Ambiguous Supplier Reply"
+    },
+    {
+      "scenario_id": "SC-05",
+      "approach": "fixed_rules",
+      "tool_calls": 12,
+      "invalid_proposals": 0,
+      "unmet_batches": 2,
+      "integrity_invariant_violations": 0,
+      "runtime_ms": 0.38,
+      "scenario_name": "Stale Confirmation \u00e2\u20ac\u201d Stock Changes After Approval"
+    },
+    {
+      "scenario_id": "SC-05",
+      "approach": "single_agent",
+      "tool_calls": 14,
+      "invalid_proposals": 1,
+      "unmet_batches": 4,
+      "integrity_invariant_violations": 0,
+      "runtime_ms": 0.4,
+      "scenario_name": "Stale Confirmation \u00e2\u20ac\u201d Stock Changes After Approval"
+    },
+    {
+      "scenario_id": "SC-05",
+      "approach": "multi_agent",
+      "tool_calls": 12,
+      "invalid_proposals": 0,
+      "unmet_batches": 2,
+      "integrity_invariant_violations": 0,
+      "runtime_ms": 0.89,
+      "scenario_name": "Stale Confirmation \u00e2\u20ac\u201d Stock Changes After Approval"
+    },
+    {
+      "scenario_id": "SC-06",
+      "approach": "fixed_rules",
+      "tool_calls": 12,
+      "invalid_proposals": 0,
+      "unmet_batches": 10,
+      "integrity_invariant_violations": 0,
+      "runtime_ms": 0.32,
+      "scenario_name": "Infeasible Demand \u00e2\u20ac\u201d Honest Gap"
+    },
+    {
+      "scenario_id": "SC-06",
+      "approach": "single_agent",
+      "tool_calls": 14,
+      "invalid_proposals": 1,
+      "unmet_batches": 10,
+      "integrity_invariant_violations": 0,
+      "runtime_ms": 0.32,
+      "scenario_name": "Infeasible Demand \u00e2\u20ac\u201d Honest Gap"
+    },
+    {
+      "scenario_id": "SC-06",
+      "approach": "multi_agent",
+      "tool_calls": 12,
+      "invalid_proposals": 0,
+      "unmet_batches": 10,
+      "integrity_invariant_violations": 0,
+      "runtime_ms": 0.49,
+      "scenario_name": "Infeasible Demand \u00e2\u20ac\u201d Honest Gap"
+    }
+  ],
+  "summary": {
+    "total_integrity_violations": 0,
+    "multi_agent_invalid_proposals": 0,
+    "single_agent_invalid_proposals": 5,
+    "fixed_rules_invalid_proposals": 0
+  }
+}

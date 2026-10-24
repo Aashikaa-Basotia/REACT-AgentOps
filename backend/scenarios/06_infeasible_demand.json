@@ -1,0 +1,211 @@
+{
+  "scenario_id": "SC-06",
+  "title": "Infeasible Aggregate Demand Across Flooded Corridors",
+  "description": "Total requested demand across all three hospitals is 24 batches. Simultaneous flooding blocks the routes from S2, S3, and S4, leaving only S1 (Peenya) reachable. S1's confirmed stock and transport capacity allow at most 10 batches to physically arrive before any hospital's deadline. No rearrangement of the remaining open routes can close this gap. The system must report Infeasible, quantify the unmet demand per hospital, and request human review rather than inventing supply.",
+  "resource_type": "Liquid Medical Oxygen (LMO) & Cryo-Cylinders",
+  "unit": "Batches",
+  "freshness_window_minutes": 60,
+  "hospitals": [
+    {
+      "id": "H1",
+      "name": "Manipal Hospital Whitefield",
+      "zone": "East Zone",
+      "lat": 12.9592,
+      "lng": 77.7321,
+      "current_stock": 2,
+      "burn_rate_per_hour": 4.0,
+      "requested_batches": 8,
+      "deadline_minutes": 120,
+      "minimum_reserve": 2
+    },
+    {
+      "id": "H2",
+      "name": "Victoria Hospital City Market",
+      "zone": "Central Zone",
+      "lat": 12.9634,
+      "lng": 77.5744,
+      "current_stock": 2,
+      "burn_rate_per_hour": 3.0,
+      "requested_batches": 8,
+      "deadline_minutes": 150,
+      "minimum_reserve": 2
+    },
+    {
+      "id": "H3",
+      "name": "Baptist Hospital Hebbal",
+      "zone": "North Zone",
+      "lat": 13.0358,
+      "lng": 77.5891,
+      "current_stock": 2,
+      "burn_rate_per_hour": 2.0,
+      "requested_batches": 8,
+      "deadline_minutes": 180,
+      "minimum_reserve": 1
+    }
+  ],
+  "suppliers": [
+    {
+      "id": "S1",
+      "name": "Peenya Industrial Cryo-Plant",
+      "zone": "West Zone",
+      "lat": 13.0285,
+      "lng": 77.5197,
+      "confirmed_stock": 10,
+      "reported_stock": 10,
+      "dispatch_trucks_available": 2,
+      "prep_lead_time_minutes": 15
+    },
+    {
+      "id": "S2",
+      "name": "Hoskote Liquid Oxygen Depot",
+      "zone": "East Zone",
+      "lat": 13.0722,
+      "lng": 77.7981,
+      "confirmed_stock": 10,
+      "reported_stock": 10,
+      "dispatch_trucks_available": 2,
+      "prep_lead_time_minutes": 20
+    },
+    {
+      "id": "S3",
+      "name": "Bommasandra Air Liquid Hub",
+      "zone": "South Zone",
+      "lat": 12.8160,
+      "lng": 77.6775,
+      "confirmed_stock": 8,
+      "reported_stock": 8,
+      "dispatch_trucks_available": 2,
+      "prep_lead_time_minutes": 15
+    },
+    {
+      "id": "S4",
+      "name": "Yelahanka Industrial Gas Depot",
+      "zone": "North Zone",
+      "lat": 13.1006,
+      "lng": 77.5963,
+      "confirmed_stock": 8,
+      "reported_stock": 8,
+      "dispatch_trucks_available": 2,
+      "prep_lead_time_minutes": 10
+    }
+  ],
+  "routes": [
+    {
+      "id": "R1",
+      "supplier_id": "S1",
+      "hospital_id": "H1",
+      "corridor_name": "Outer Ring Road - Peenya to Whitefield",
+      "travel_time_minutes": 65,
+      "max_capacity_batches": 6,
+      "is_blocked": false,
+      "delay_minutes": 0
+    },
+    {
+      "id": "R2",
+      "supplier_id": "S1",
+      "hospital_id": "H2",
+      "corridor_name": "Magadi & West Arterial Highway",
+      "travel_time_minutes": 45,
+      "max_capacity_batches": 4,
+      "is_blocked": false,
+      "delay_minutes": 0
+    },
+    {
+      "id": "R3",
+      "supplier_id": "S2",
+      "hospital_id": "H1",
+      "corridor_name": "Old Madras Road - Whitefield Spur",
+      "travel_time_minutes": 35,
+      "max_capacity_batches": 8,
+      "is_blocked": false,
+      "delay_minutes": 0
+    },
+    {
+      "id": "R4",
+      "supplier_id": "S2",
+      "hospital_id": "H3",
+      "corridor_name": "Old Madras Road Highway",
+      "travel_time_minutes": 50,
+      "max_capacity_batches": 8,
+      "is_blocked": false,
+      "delay_minutes": 0
+    },
+    {
+      "id": "R5",
+      "supplier_id": "S3",
+      "hospital_id": "H2",
+      "corridor_name": "Hosur Road Electronic City Flyover",
+      "travel_time_minutes": 50,
+      "max_capacity_batches": 8,
+      "is_blocked": false,
+      "delay_minutes": 0
+    },
+    {
+      "id": "R6",
+      "supplier_id": "S4",
+      "hospital_id": "H3",
+      "corridor_name": "Tumkur-Hebbal Elevated Expressway",
+      "travel_time_minutes": 25,
+      "max_capacity_batches": 6,
+      "is_blocked": false,
+      "delay_minutes": 0
+    }
+  ],
+  "events": [
+    {
+      "time_minute": 15,
+      "event_type": "route_blocked",
+      "target_id": "R3",
+      "description": "Flooding on the Old Madras Road spur cuts the S2 to H1 corridor before any dispatch can complete.",
+      "payload": {
+        "is_blocked": true,
+        "delay_minutes": 360,
+        "reason": "Old Madras Road underpass flooded"
+      }
+    },
+    {
+      "time_minute": 15,
+      "event_type": "route_blocked",
+      "target_id": "R4",
+      "description": "The same flooding event cuts the S2 to H3 corridor, isolating Hoskote depot entirely.",
+      "payload": {
+        "is_blocked": true,
+        "delay_minutes": 360,
+        "reason": "Old Madras Road underpass flooded"
+      }
+    },
+    {
+      "time_minute": 15,
+      "event_type": "route_blocked",
+      "target_id": "R5",
+      "description": "Electronic City flyover approach floods, cutting the S3 to H2 corridor.",
+      "payload": {
+        "is_blocked": true,
+        "delay_minutes": 300,
+        "reason": "Hosur Road Electronic City flyover submerged"
+      }
+    },
+    {
+      "time_minute": 15,
+      "event_type": "route_blocked",
+      "target_id": "R6",
+      "description": "Debris and waterlogging close the Tumkur-Hebbal expressway, cutting the S4 to H3 corridor.",
+      "payload": {
+        "is_blocked": true,
+        "delay_minutes": 300,
+        "reason": "Tumkur-Hebbal elevated expressway closed for debris clearance"
+      }
+    },
+    {
+      "time_minute": 15,
+      "event_type": "supplier_message",
+      "target_id": "S1",
+      "description": "With S2, S3, and S4 effectively unreachable, only S1 remains open. S1's confirmed stock of 10 batches and available trucks cap total deliverable supply at 10 batches before any hospital deadline, against 24 batches requested in aggregate.",
+      "payload": {
+        "max_deliverable_before_deadlines": 10,
+        "total_requested": 24,
+        "expected_shortfall": 14
+      }
+    }
+  ]
+}
