@@ -178,7 +178,18 @@ export function App() {
       .then(r => r.json())
       .then(data => {
         if (data.scenarios && data.scenarios.length > 0) {
-          setScenarios(data.scenarios);
+          const seen = new Set<string>();
+          const uniqueScenarios: ScenarioMeta[] = [];
+          for (const s of data.scenarios) {
+            if (!seen.has(s.id)) {
+              seen.add(s.id);
+              uniqueScenarios.push({
+                ...s,
+                name: (s.name || '').replace(/â€”|—|–/g, '-').replace(/\s*-\s*/g, ' - '),
+              });
+            }
+          }
+          setScenarios(uniqueScenarios);
           setServerOnline(true);
         }
       })
@@ -639,7 +650,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col bg-[#F8F9F5] text-[#14170F] overflow-y-auto font-sans select-none relative">
+    <div className="h-screen w-full flex flex-col bg-[#F8F9F5] text-[#14170F] overflow-hidden font-sans select-none relative">
       {/* 0. Full-Bleed Animated Abstract Network Background */}
       <NetworkBackground opacity={0.18} interactive={true} />
 
@@ -690,9 +701,9 @@ export function App() {
 
       {/* 2. Main Role-Based Content Area */}
       {rolePOV === 'coordinator' && (
-        <main className="flex-1 grid grid-cols-12 p-6 gap-6 pb-24 relative z-10 w-full max-w-[1920px] mx-auto">
+        <main className="flex-1 min-h-0 grid grid-cols-12 p-3 sm:p-4 lg:p-5 gap-4 relative z-10 w-full max-w-[1920px] mx-auto overflow-hidden">
           {/* Left/Center: Geo-Map vs Topology Graph with View Switcher */}
-          <section className="col-span-12 xl:col-span-8 min-h-[640px] xl:min-h-[720px] relative rounded-3xl border border-black/10 bg-white/90 backdrop-blur-md shadow-sm overflow-hidden flex flex-col">
+          <section className="col-span-12 lg:col-span-8 h-full min-h-0 relative rounded-3xl border border-black/10 bg-white/90 backdrop-blur-md shadow-sm overflow-hidden flex flex-col">
             {/* View Sub-Toggle Header */}
             <div className="h-14 px-6 bg-white/90 border-b border-black/10 flex items-center justify-between shrink-0 z-10 backdrop-blur-md">
               <div className="flex items-center gap-3">
@@ -731,9 +742,10 @@ export function App() {
             </div>
 
             {/* Map Canvas Body */}
-            <div className="flex-1 relative overflow-hidden min-h-[580px]">
+            <div className="flex-1 min-h-0 relative overflow-hidden">
               {coordinatorView === 'geomap' ? (
                 <BengaluruGeoMap
+                  scenarioId={currentScenarioId}
                   activeHospitals={hospitals}
                   activeSuppliers={suppliers}
                   activeRoutes={routes}
@@ -764,7 +776,7 @@ export function App() {
           </section>
 
           {/* Right Column: Live Math Panels vs Agent Activity Feed vs Facility Directory */}
-          <section className="col-span-12 xl:col-span-4 min-h-[640px] xl:min-h-[720px] overflow-hidden flex flex-col rounded-3xl border border-black/10 bg-white/90 backdrop-blur-md shadow-sm">
+          <section className="col-span-12 lg:col-span-4 h-full min-h-0 overflow-hidden flex flex-col rounded-3xl border border-black/10 bg-white/90 backdrop-blur-md shadow-sm">
             {/* Right Sub-Header Tabs */}
             <div className="h-14 px-4 bg-white/90 border-b border-black/10 flex items-center justify-between shrink-0 backdrop-blur-md">
               <div className="flex items-center gap-1.5 bg-black/5 border border-black/8 rounded-full p-1">
@@ -809,7 +821,7 @@ export function App() {
             </div>
 
             {/* Right Column Content */}
-            <div className="flex-1 overflow-hidden p-2">
+            <div className="flex-1 min-h-0 overflow-hidden p-2 flex flex-col">
               {coordinatorRightTab === 'math' && (
                 <LiveMathPanels
                   hospitals={hospitals}
@@ -859,7 +871,7 @@ export function App() {
 
       {/* Hospital Portal POV */}
       {rolePOV === 'hospital' && (
-        <main className="flex-1 overflow-hidden flex flex-col pb-11">
+        <main className="flex-1 min-h-0 overflow-y-auto flex flex-col pb-20">
           <HospitalPortalView
             scenarioId={currentScenarioId}
             activeHospitals={hospitals}
@@ -879,7 +891,7 @@ export function App() {
 
       {/* Supplier Depot POV */}
       {rolePOV === 'supplier' && (
-        <main className="flex-1 overflow-hidden flex flex-col pb-11">
+        <main className="flex-1 min-h-0 overflow-y-auto flex flex-col pb-20">
           <SupplierDepotView
             activeSuppliers={suppliers}
             activeRoutes={routes}

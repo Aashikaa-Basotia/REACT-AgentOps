@@ -1,3 +1,4 @@
+import os
 """
 Unit tests for Live Data Ingestion Pipeline & Responsible AI Governance Shield.
 """
@@ -13,6 +14,13 @@ SCENARIOS_DIR = Path(__file__).resolve().parent.parent / "evaluation" / "scenari
 
 
 class TestIngestionAndGovernance(unittest.TestCase):
+
+    def setUp(self):
+        self.old_key = os.environ.pop("GEMINI_API_KEY", None)
+
+    def tearDown(self):
+        if self.old_key is not None:
+            os.environ["GEMINI_API_KEY"] = self.old_key
 
     def test_governance_shield_blocks_adversarial_overrides(self):
         """GovernanceShield detects prompt injection attempts and halts execution."""

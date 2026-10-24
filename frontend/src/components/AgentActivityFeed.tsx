@@ -22,11 +22,14 @@ export const AgentActivityFeed: React.FC<AgentActivityFeedProps> = ({
   simulationMinute,
 }) => {
   const [actorFilter, setActorFilter] = useState<string>('all');
-  const feedEndRef = useRef<HTMLDivElement>(null);
+  const feedContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (isSimulating && feedEndRef.current) {
-      feedEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (isSimulating && feedContainerRef.current) {
+      feedContainerRef.current.scrollTo({
+        top: feedContainerRef.current.scrollHeight,
+        behavior: 'smooth',
+      });
     }
   }, [events.length, isSimulating]);
 
@@ -42,7 +45,7 @@ export const AgentActivityFeed: React.FC<AgentActivityFeedProps> = ({
   return (
     <div className="flex flex-col h-full bg-white/70 backdrop-blur-md rounded-2xl border border-black/8 shadow-sm overflow-hidden text-[#14170F]">
       {/* Feed Header */}
-      <div className="p-3.5 border-b border-black/8 flex items-center justify-between bg-white/60">
+      <div className="p-3.5 border-b border-black/8 flex items-center justify-between bg-white/60 shrink-0">
         <div className="flex items-center gap-2">
           <Terminal className="w-4 h-4 text-[#3E6B4F]" />
           <h2 className="text-xs font-bold uppercase tracking-wider text-[#14170F] font-mono">
@@ -61,7 +64,7 @@ export const AgentActivityFeed: React.FC<AgentActivityFeedProps> = ({
       </div>
 
       {/* Filter Tabs */}
-      <div className="px-3 py-2 border-b border-black/6 bg-white/40 flex items-center gap-1.5 overflow-x-auto">
+      <div className="px-3 py-2 border-b border-black/6 bg-white/40 flex items-center gap-1.5 overflow-x-auto shrink-0">
         <Filter className="w-3 h-3 text-[#14170F]/40 mr-1 shrink-0" />
         {[
           { id: 'all', label: 'All Feeds' },
@@ -86,7 +89,7 @@ export const AgentActivityFeed: React.FC<AgentActivityFeedProps> = ({
       </div>
 
       {/* Events List */}
-      <div className="flex-1 overflow-y-auto p-3 space-y-2.5">
+      <div ref={feedContainerRef} className="flex-1 min-h-0 overflow-y-auto p-3 space-y-2.5">
         {filteredEvents.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center text-[#14170F]/50 gap-2 p-6 text-center">
             <Activity className="w-8 h-8 text-[#14170F]/30" />
@@ -101,7 +104,7 @@ export const AgentActivityFeed: React.FC<AgentActivityFeedProps> = ({
             <AgentFeedCard key={ev.id || idx} event={ev} index={idx} />
           ))
         )}
-        <div ref={feedEndRef} />
+        
       </div>
 
       {/* Footer System Status */}

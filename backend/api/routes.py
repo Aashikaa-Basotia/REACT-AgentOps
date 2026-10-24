@@ -80,8 +80,12 @@ class PlanApprovalRequest(BaseModel):
 def list_scenarios():
     """List available scenario drill definitions."""
     scenarios = []
+    seen_ids = set()
     for f in sorted(SCENARIOS_DIR.glob("*.json")):
         sc = load_scenario(f)
+        if sc.id in seen_ids:
+            continue
+        seen_ids.add(sc.id)
         scenarios.append({
             "id": sc.id,
             "filename": f.name,

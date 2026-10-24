@@ -156,7 +156,7 @@ export const FacilityDirectoryPanel: React.FC<FacilityDirectoryPanelProps> = ({
       </div>
 
       {/* Facilities List */}
-      <div className="flex-1 overflow-y-auto p-3 space-y-3">
+      <div className="flex-1 min-h-0 overflow-y-auto p-3 space-y-3">
         {filteredList.length === 0 ? (
           <div className="p-8 text-center text-[#14170F]/60 text-sm">
             No registered facilities matching filter query.

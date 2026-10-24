@@ -1,3 +1,4 @@
+import os
 """
 Tests for Human-in-the-Loop (HITL) Coordinator Approval and Optimistic Concurrency Locking.
 """
@@ -22,10 +23,15 @@ SCENARIOS_DIR = Path(__file__).parent.parent / "evaluation" / "scenarios"
 class TestHumanInTheLoop(unittest.TestCase):
 
     def setUp(self):
+        self.old_key = os.environ.pop("GEMINI_API_KEY", None)
         self.sc_path = SCENARIOS_DIR / "01_baseline.json"
         self.scenario = load_scenario(self.sc_path)
         self.engine = SimulationEngine(self.scenario)
         self.service = ReservationService(self.engine, auto_approve=False)
+
+    def tearDown(self):
+        if self.old_key is not None:
+            os.environ["GEMINI_API_KEY"] = self.old_key
 
     def test_interactive_mode_pauses_for_human_approval(self):
         """When interactive_mode=True, supervisor pauses with PENDING_HUMAN_APPROVAL and emits event."""

@@ -3,6 +3,7 @@ import {
   Play,
   RotateCcw,
   FastForward,
+  Rewind,
   Scale,
   FileSpreadsheet,
   Activity,
@@ -16,7 +17,6 @@ import {
   Settings,
   Upload,
   Clock,
-  Compass,
   ShieldCheck,
 } from 'lucide-react';
 import { cn } from '../lib/utils';
@@ -83,9 +83,29 @@ export const TopBar: React.FC<TopBarProps> = ({
   const [showDomainMenu, setShowDomainMenu] = useState(false);
 
   return (
-    <header className="min-h-[76px] py-2.5 px-6 border-b border-black/10 bg-white/95 backdrop-blur-xl flex flex-wrap items-center justify-between gap-4 z-30 shrink-0 text-[#14170F] shadow-sm">
-      {/* Operational Role Switcher & Tactical Scope on Left */}
-      <div className="flex items-center gap-3 flex-wrap">
+        <header className="min-h-[76px] py-3 px-4 lg:px-6 border-b border-black/10 bg-white/95 backdrop-blur-xl flex flex-wrap items-center justify-between gap-x-6 gap-y-3 z-30 shrink-0 text-[#14170F] shadow-sm select-none">
+      {/* 1. Left Group: Stylish Brand & Operational Role Switcher */}
+      <div className="flex items-center gap-3.5 flex-wrap">
+        {/* Stylish Futuristic REACT Command Brand Button (Light Executive Theme) */}
+        <button
+          onClick={onToggleHero}
+          className="flex items-center gap-3 px-3.5 py-2 rounded-2xl bg-white hover:bg-emerald-50/50 border-2 border-[#8FD13F]/60 hover:border-[#8FD13F] shadow-[0_2px_14px_rgba(143,209,63,0.22)] hover:shadow-[0_4px_22px_rgba(143,209,63,0.4)] transition-all cursor-pointer select-none group active:scale-95 text-left shrink-0"
+          title="REACT: Resource Evaluation Against Compound Threats — Click for Executive Overview"
+        >
+          <div className="relative flex items-center justify-center pl-0.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#5B9C20] animate-ping absolute opacity-75" />
+            <span className="w-2.5 h-2.5 rounded-full bg-[#5B9C20]" />
+          </div>
+          <span className="px-2.5 py-0.5 rounded-lg bg-[#8FD13F]/20 border border-[#8FD13F]/50 font-['Orbitron',sans-serif] font-black text-base sm:text-lg tracking-[0.22em] text-[#1B4D20] group-hover:text-[#113814] group-hover:bg-[#8FD13F]/35 transition-all">
+            REACT
+          </span>
+          <span className="text-black/20 text-sm hidden sm:inline">|</span>
+          <span className="text-xs font-bold tracking-tight text-[#14170F]/80 group-hover:text-[#14170F] truncate max-w-[280px] lg:max-w-[340px] hidden md:inline transition-colors">
+            Resource Evaluation Against Compound Threats
+          </span>
+        </button>
+
+        {/* 3-Role Operational POV Switcher */}
         <div className="flex items-center bg-black/[0.04] border border-black/10 p-1 rounded-full shadow-inner">
           <button
             onClick={() => onSelectRolePOV('coordinator')}
@@ -131,30 +151,11 @@ export const TopBar: React.FC<TopBarProps> = ({
             </span>
           </button>
         </div>
-
-        {/* Scenario Selector Dropdown */}
-        <div className="relative shrink-0">
-          <select
-            value={currentScenarioId}
-            onChange={(e) => onSelectScenario(e.target.value)}
-            disabled={isSimulating}
-            className="h-11 px-4 pr-9 rounded-full bg-white border border-black/15 text-sm font-display font-bold text-[#14170F] focus:outline-none focus:border-[#8FD13F] transition-all cursor-pointer appearance-none shadow-sm disabled:opacity-50 min-w-[200px]"
-          >
-            {scenarios.map((sc) => (
-              <option key={sc.id} value={sc.id}>
-                {sc.id} — {sc.name}
-              </option>
-            ))}
-          </select>
-          <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-[#14170F]/60 text-sm font-bold">
-            ▾
-          </div>
-        </div>
       </div>
 
-      {/* Center Controls */}
+      {/* 2. Center Group: Domain Menu & Simulation Chronometer HUD */}
       <div className="flex items-center gap-3 flex-wrap justify-center">
-        {/* Settings button for domain pack */}
+        {/* Domain Pack Switcher */}
         <div className="relative">
           <button
             onClick={() => setShowDomainMenu(!showDomainMenu)}
@@ -162,10 +163,10 @@ export const TopBar: React.FC<TopBarProps> = ({
             title="Enterprise Domain Pack Switcher"
           >
             <Settings className="w-4 h-4 mr-1.5 text-[#3E6B4F]" />
-            <span>Domain: {domainPack === 'manufacturing' ? 'Semiconductor' : 'Healthcare'}</span>
+            <span>Domain: {domainPack === 'manufacturing' ? 'Semiconductor JIT' : 'Healthcare (Oxygen)'}</span>
           </button>
           {showDomainMenu && (
-            <div className="absolute left-0 mt-2 w-56 bg-white border border-black/15 rounded-2xl shadow-xl z-40 p-1.5 animate-scale-in">
+            <div className="absolute left-0 mt-2 w-60 bg-white border border-black/15 rounded-2xl shadow-xl z-40 p-1.5 animate-scale-in">
               <button
                 onClick={() => {
                   onSelectDomainPack('healthcare');
@@ -179,7 +180,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                 )}
               >
                 <Hospital className="w-4 h-4 text-[#3E6B4F]" />
-                <span>Healthcare: Oxygen</span>
+                <span>Healthcare: Oxygen Replenishment</span>
               </button>
               <button
                 onClick={() => {
@@ -194,7 +195,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                 )}
               >
                 <Factory className="w-4 h-4 text-[#E8A23D]" />
-                <span>Mfg JIT: Silicon Wafer</span>
+                <span>Mfg JIT: Silicon Wafer Logistics</span>
               </button>
             </div>
           )}
@@ -210,7 +211,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                   T+{simulationMinute}m
                 </span>
                 <span className="text-xs text-[#14170F]/60 font-medium hidden lg:inline">
-                  ({String(Math.floor(simulationMinute / 60)).padStart(2, '0')}:{String(simulationMinute % 60).padStart(2, '0')}:00)
+                  (of 300m)
                 </span>
               </div>
               <span
@@ -239,6 +240,28 @@ export const TopBar: React.FC<TopBarProps> = ({
               </span>
               <div className="flex items-center gap-1.5 pl-2 border-l border-black/10">
                 <button
+                  onClick={() => onAdvanceTime(-15)}
+                  disabled={isSimulating || simulationMinute <= 0}
+                  className="p-1 rounded-full hover:bg-black/5 text-[#14170F]/70 hover:text-[#14170F] disabled:opacity-30 transition-colors"
+                  title="Rewind 15 minutes"
+                >
+                  <Rewind className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  onClick={() => onAdvanceTime(15)}
+                  disabled={isSimulating || simulationMinute >= 300}
+                  className="p-1 rounded-full hover:bg-black/5 text-[#14170F]/70 hover:text-[#14170F] disabled:opacity-30 transition-colors"
+                  title="Fast forward 15 minutes"
+                >
+                  <FastForward className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+            <div className="hidden 2xl:flex items-center gap-1.5 bg-black/5 border border-black/8 p-1 rounded-full">
+              <span className="text-[11px] font-mono font-bold text-[#14170F]/60 px-2 uppercase">Jump:</span>
+              <div className="flex items-center gap-1">
+                <button
                   onClick={() => onAdvanceTime(15)}
                   disabled={isSimulating || simulationMinute >= 300}
                   className="text-xs font-bold px-2 py-1 rounded-md bg-black/5 hover:bg-black/10 text-[#14170F] transition-colors disabled:opacity-30 active:scale-95"
@@ -256,43 +279,39 @@ export const TopBar: React.FC<TopBarProps> = ({
                 </button>
               </div>
             </div>
-
-            {/* Rehearsal Reset Control */}
-            <button
-              onClick={onReset}
-              disabled={isSimulating}
-              className="h-10 px-4 rounded-full border border-black/15 bg-white hover:bg-black/5 text-sm font-bold text-[#14170F]/80 hover:text-[#14170F] disabled:opacity-40 transition-all flex items-center gap-1.5 shrink-0 shadow-sm active:scale-95"
-              title="Reset Rehearsal to T+0m"
-            >
-              <RotateCcw className="w-4 h-4" />
-              <span>Reset</span>
-            </button>
           </>
         )}
       </div>
 
-      {/* Right Action Buttons */}
-      <div className="flex items-center gap-2">
-        {/* Official Project Badge with Full Form (Command Console Style) */}
-        <div
-          onClick={onToggleHero}
-          className="hidden 2xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/[0.04] border border-black/8 hover:bg-black/[0.07] transition-all cursor-pointer select-none group shadow-xs mr-1"
-          title="Protocol Overview: Resource Evaluation Against Compound Threats"
-        >
-          <div className="w-2 h-2 rounded-full bg-[#5B9C20] animate-pulse" />
-          <span className="font-display font-black text-xs text-[#14170F] tracking-tight">
-            REACT
-          </span>
-          <span className="text-black/20 text-xs">|</span>
-          <span className="text-[11px] font-medium text-[#14170F]/70 truncate max-w-[260px]">
-            Resource Evaluation Against Compound Threats
-          </span>
+      {/* 3. Right Group: Scenario Selection, Modals, Reset & Primary Run Rehearsal */}
+      <div className="flex items-center gap-2.5 flex-wrap">
+        {/* Scenario Selector Dropdown */}
+        <div className="relative shrink-0">
+          <select
+            value={currentScenarioId}
+            onChange={(e) => onSelectScenario(e.target.value)}
+            disabled={isSimulating}
+            className="h-11 px-4 pr-9 rounded-full bg-white border border-black/15 text-sm font-display font-bold text-[#14170F] focus:outline-none focus:border-[#8FD13F] transition-all cursor-pointer appearance-none shadow-sm disabled:opacity-50 min-w-[210px]"
+          >
+            {Array.from(new Map(scenarios.map((sc) => [sc.id, sc])).values()).map((sc) => {
+              const cleanName = (sc.name || '').replace(/â€”|—|–/g, '-').replace(/\s*-\s*/g, ' - ');
+              return (
+                <option key={sc.id} value={sc.id}>
+                  {sc.id} - {cleanName}
+                </option>
+              );
+            })}
+          </select>
+          <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-[#14170F]/60 text-sm font-bold">
+            ▾
+          </div>
         </div>
+
         {/* Human Sign-Off Required Button (Animated Pulse) */}
         {hasPendingApproval && onOpenApproval && (
           <button
             onClick={onOpenApproval}
-            className="h-9 px-3.5 rounded-full border border-[#E8A23D] bg-[#E8A23D]/20 hover:bg-[#E8A23D]/30 text-xs font-bold text-[#87550E] transition-all flex items-center gap-1.5 shadow-sm animate-pulse active:scale-95"
+            className="h-10 px-4 rounded-full border border-[#E8A23D] bg-[#E8A23D]/20 hover:bg-[#E8A23D]/30 text-xs sm:text-sm font-bold text-[#87550E] transition-all flex items-center gap-1.5 shadow-sm animate-pulse active:scale-95"
           >
             <ShieldAlert className="w-4 h-4 text-[#E8A23D]" />
             <span>Sign-Off Required</span>
@@ -326,18 +345,6 @@ export const TopBar: React.FC<TopBarProps> = ({
           </PillButton>
         )}
 
-        {/* 1-Click Evaluator Guided Tour */}
-        {onStartTour && (
-          <button
-            onClick={onStartTour}
-            className="h-10 px-4 rounded-full bg-gradient-to-r from-emerald-500/25 to-teal-500/25 border border-emerald-600/50 hover:border-emerald-600 text-sm font-bold text-[#2D5A1E] transition-all flex items-center gap-2 shadow-sm active:scale-95"
-            title="Start 1-Click Interactive Evaluator Walkthrough"
-          >
-            <Compass className="w-4 h-4 text-[#3E6B4F]" />
-            <span className="font-mono">Guide Tour</span>
-          </button>
-        )}
-
         {/* Responsible AI & Governance Shield */}
         {onOpenGovernance && (
           <PillButton
@@ -359,6 +366,7 @@ export const TopBar: React.FC<TopBarProps> = ({
             onClick={onOpenCgiAccelerator}
             icon={<Layers className="w-4 h-4 text-[#3E6B4F]" />}
             title="Enterprise Accelerator Pattern & Cross-Industry Blueprint"
+            className="hidden lg:inline-flex"
           >
             Industry Patterns
           </PillButton>
@@ -375,6 +383,19 @@ export const TopBar: React.FC<TopBarProps> = ({
           >
             Audit & ROI
           </PillButton>
+        )}
+
+        {/* Rehearsal Reset Control */}
+        {rolePOV === 'coordinator' && (
+          <button
+            onClick={onReset}
+            disabled={isSimulating}
+            className="h-11 px-4 rounded-full border border-black/15 bg-white hover:bg-black/5 text-sm font-bold text-[#14170F]/80 hover:text-[#14170F] disabled:opacity-40 transition-all flex items-center gap-1.5 shrink-0 shadow-sm active:scale-95"
+            title="Reset Rehearsal to T+0m"
+          >
+            <RotateCcw className="w-4 h-4" />
+            <span>Reset</span>
+          </button>
         )}
 
         {/* Primary CTA: Run Rehearsal */}

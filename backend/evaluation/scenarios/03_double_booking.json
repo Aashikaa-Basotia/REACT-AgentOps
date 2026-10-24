@@ -1,6 +1,6 @@
 {
   "id": "SC-03",
-  "name": "Double Booking — Competing Reservations",
+  "name": "Double Booking - Competing Reservations",
   "description": "H1 (Jayadeva Cardiovascular) and H2 (Fortis Bannerghatta) both try to reserve 8 batches from S1 (Peenya Cryo-Plant, which has only 10). The second request must be rejected or reduced. Tests atomic reservation.",
   "freshness_window": 120,
   "total_simulation_time": 360,
@@ -24,7 +24,7 @@
       "time": 30,
       "event_type": "route_blocked",
       "target_id": "R_S2_H2",
-      "description": "S2 route to H2 blocked — H2 must also rely on S1",
+      "description": "S2 route to H2 blocked - H2 must also rely on S1",
       "params": {}
     },
     {

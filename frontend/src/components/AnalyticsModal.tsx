@@ -11,7 +11,7 @@ import {
   RefreshCw,
   Zap,
   Clock,
-  DollarSign,
+  IndianRupee,
   Cpu,
   Layers,
 } from 'lucide-react';
@@ -121,7 +121,7 @@ export const AnalyticsModal: React.FC<AnalyticsModalProps> = ({
                 : "border-transparent text-[#14170F]/60 hover:text-[#14170F]"
             )}
           >
-            <DollarSign className="w-4 h-4 text-emerald-700" />
+            <IndianRupee className="w-4 h-4 text-emerald-700" />
             <span>AI-to-ROI & Business Value</span>
           </button>
 
@@ -245,7 +245,7 @@ export const AnalyticsModal: React.FC<AnalyticsModalProps> = ({
                       Enterprise Framework Value
                     </span>
                     <div className="text-2xl font-black font-mono text-purple-800 mt-2">
-                      $120k / Year
+                      ₹1 Crore / Year
                     </div>
                     <span className="text-xs font-bold text-purple-700 block mt-1">
                       Enterprise Tier Value

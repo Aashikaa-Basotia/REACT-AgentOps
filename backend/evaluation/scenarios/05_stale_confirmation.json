@@ -1,6 +1,6 @@
 {
   "id": "SC-05",
-  "name": "Stale Confirmation — Stock Changes After Approval",
+  "name": "Stale Confirmation - Stock Changes After Approval",
   "description": "S1 (Peenya Cryo-Plant) stock is confirmed at 10, a plan is approved. Before reservation, S1's stock drops to 6 (diverted to another customer). Reservation against v1 must fail due to version mismatch. Tests version-checking and re-verification.",
   "freshness_window": 60,
   "total_simulation_time": 360,

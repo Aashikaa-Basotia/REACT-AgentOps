@@ -91,7 +91,7 @@ const SCENARIO_COORDINATOR_GUIDANCE: Record<string, CoordinatorGuidance> = {
     alternativeOptions: 'Reject if military mobile oxygen generation units are arriving on-site to take over acute facilities.',
   },
   'SC-07': {
-    situation: 'High-precision EUV wafer fabrication facilities require uninterrupted nitrogen/argon cryogenic supply to prevent multimillion-dollar fab chamber shutdown and wafer contamination.',
+    situation: 'High-precision EUV wafer fabrication facilities require uninterrupted nitrogen/argon cryogenic supply to prevent multi-crore fab chamber shutdown and wafer contamination.',
     threatLevel: 'HIGH',
     aiProposalSummary: 'Staged precision delivery from Hoskote depot and regional partners directly to Whitefield cleanrooms, maintaining zero stockout margin and strict lot traceability.',
     whyThisPlan: 'Optimizes transit windows to avoid peak freight congestion and maintains continuous positive purge pressure in wafer fab tools.',

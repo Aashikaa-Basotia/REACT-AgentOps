@@ -194,7 +194,7 @@ class Scenario:
 
 def load_scenario(path: str | Path) -> Scenario:
     """Load a scenario from a JSON file."""
-    with open(path) as f:
+    with open(path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
     hospitals = [Hospital(**h) for h in data["hospitals"]]

@@ -1,6 +1,6 @@
 {
   "id": "SC-02",
-  "name": "Flood — S2 Route Blocked",
+  "name": "Flood - S2 Route Blocked",
   "description": "Flash flooding swamps low-lying Bellandur/Sarjapur transit corridors connecting S2 (Hoskote) at t=30. Facilities compete for S1 (Peenya Cryo-Plant). Alternate bypass route R_ALT_S2_H2 cleared at t=120.",
   "freshness_window": 60,
   "total_simulation_time": 360,

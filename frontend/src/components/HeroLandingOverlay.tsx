@@ -132,8 +132,9 @@ export const HeroLandingOverlay: React.FC<HeroLandingOverlayProps> = ({
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
-            {scenarios.map((sc) => {
+            {Array.from(new Map(scenarios.map((sc) => [sc.id, sc])).values()).map((sc) => {
               const isSelected = sc.id === currentScenarioId;
+              const cleanName = (sc.name || '').replace(/â€”|—|–/g, '-').replace(/\s*-\s*/g, ' - ');
               return (
                 <div
                   key={sc.id}
@@ -157,7 +158,7 @@ export const HeroLandingOverlay: React.FC<HeroLandingOverlayProps> = ({
                       )}
                     </div>
                     <div className="font-semibold text-[#14170F] text-xs leading-snug">
-                      {sc.name}
+                      {cleanName}
                     </div>
                     <div className="text-[11px] text-[#14170F]/60 mt-1 line-clamp-2">
                       {sc.description}

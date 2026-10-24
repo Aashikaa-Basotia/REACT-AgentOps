@@ -6,6 +6,7 @@ import { BENGALURU_HOSPITALS_REGISTRY, BENGALURU_SUPPLIERS } from '../data/benga
 import { AlertTriangle, Navigation, Compass, Zap } from 'lucide-react';
 
 interface BengaluruGeoMapProps {
+  scenarioId?: string;
   activeHospitals: HospitalData[];
   activeSuppliers: SupplierData[];
   activeRoutes: RouteData[];
@@ -30,6 +31,7 @@ function hasValidCoords<T extends { lat?: number; lng?: number }>(
 }
 
 export const BengaluruGeoMap: React.FC<BengaluruGeoMapProps> = ({
+  scenarioId,
   activeHospitals,
   activeSuppliers,
   activeRoutes,
@@ -71,9 +73,12 @@ export const BengaluruGeoMap: React.FC<BengaluruGeoMapProps> = ({
       delete (mapContainerRef.current as any)._leaflet_id;
     }
 
+    const initialCenter: [number, number] = isInterRegional ? [14.5, 77.5] : [13.015, 77.658];
+    const initialZoom = isInterRegional ? 6 : 11;
+
     const map = L.map(mapContainerRef.current, {
-      center: isInterRegional ? [14.5, 77.5] : [12.9716, 77.5946],
-      zoom: isInterRegional ? 6 : 11,
+      center: initialCenter,
+      zoom: initialZoom,
       minZoom: 4,
       maxZoom: 18,
       zoomControl: false,
@@ -131,8 +136,12 @@ export const BengaluruGeoMap: React.FC<BengaluruGeoMapProps> = ({
   }, []);
 
   // Pan to selectedFacilityId if specified from external selection
+  const lastSelectedFacilityRef = useRef<string | undefined>(undefined);
   useEffect(() => {
     if (!selectedFacilityId || !mapInstanceRef.current) return;
+    if (lastSelectedFacilityRef.current === selectedFacilityId) return;
+    lastSelectedFacilityRef.current = selectedFacilityId;
+
     const targetH = activeHospitals.find(h => h.id === selectedFacilityId);
     if (targetH && hasValidCoords(targetH)) {
       mapInstanceRef.current.flyTo([targetH.lat, targetH.lng], 13, { duration: 0.8 });
@@ -407,16 +416,6 @@ export const BengaluruGeoMap: React.FC<BengaluruGeoMapProps> = ({
     }
 
     // E. Auto-fit bounds on scenario data load
-    const points: L.LatLngExpression[] = [];
-    activeHospitals.forEach(h => {
-      if (hasValidCoords(h)) points.push([h.lat, h.lng]);
-    });
-    activeSuppliers.forEach(s => {
-      if (hasValidCoords(s)) points.push([s.lat, s.lng]);
-    });
-    if (points.length > 0) {
-      map.fitBounds(L.latLngBounds(points), { padding: [50, 50], maxZoom: 13 });
-    }
   }, [activeHospitals, activeSuppliers, activeRoutes, filterMode, simulationMinute, isInterRegional, registryHospitals]);
 
   const fitCrisisBounds = () => {
@@ -430,9 +429,31 @@ export const BengaluruGeoMap: React.FC<BengaluruGeoMapProps> = ({
       if (hasValidCoords(s)) points.push([s.lat, s.lng]);
     });
     if (points.length > 0) {
-      map.fitBounds(L.latLngBounds(points), { padding: [50, 50], maxZoom: 13 });
+      map.fitBounds(L.latLngBounds(points), {
+        padding: [45, 45],
+        maxZoom: isInterRegional ? 8 : 11.5,
+      });
     }
   };
+
+  // Center view or fit bounds ONLY once when scenarioId changes, never repeatedly on simulation clock updates
+  const lastScenarioRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!scenarioId) return;
+    if (lastScenarioRef.current !== scenarioId) {
+      lastScenarioRef.current = scenarioId;
+      const t = setTimeout(() => {
+        const map = mapInstanceRef.current;
+        if (!map) return;
+        if (isInterRegional) {
+          fitCrisisBounds();
+        } else {
+          map.setView([13.015, 77.658], 11);
+        }
+      }, 120);
+      return () => clearTimeout(t);
+    }
+  }, [scenarioId, isInterRegional]);
 
   const centerDefaultView = () => {
     const map = mapInstanceRef.current;
@@ -440,7 +461,7 @@ export const BengaluruGeoMap: React.FC<BengaluruGeoMapProps> = ({
     if (isInterRegional) {
       fitCrisisBounds();
     } else {
-      map.setView([12.9716, 77.5946], 11);
+      map.setView([13.015, 77.658], 11);
     }
   };
 

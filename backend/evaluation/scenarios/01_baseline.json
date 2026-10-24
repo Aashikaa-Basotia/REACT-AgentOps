@@ -1,6 +1,6 @@
 {
   "id": "SC-01",
-  "name": "Baseline — No Disruption",
+  "name": "Baseline - No Disruption",
   "description": "All Bengaluru transit corridors open, all stock available. Every hospital's replenishment request can be met on time. Control scenario.",
   "freshness_window": 120,
   "total_simulation_time": 360,

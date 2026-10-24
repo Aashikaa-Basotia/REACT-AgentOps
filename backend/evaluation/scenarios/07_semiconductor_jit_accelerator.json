@@ -1,6 +1,6 @@
 {
   "id": "SC-07",
-  "name": "Advanced Manufacturing — Semiconductor JIT",
+  "name": "Advanced Manufacturing - Semiconductor JIT",
   "description": "Cross-industry enterprise accelerator: JIT semiconductor wafer distribution across Chennai EV, Pune Battery, and Bengaluru Avionics plants under customs clearance freeze and freight corridor delays.",
   "freshness_window": 120,
   "total_simulation_time": 360,

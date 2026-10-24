@@ -77,7 +77,7 @@ class ReactApiHandler(BaseHTTPRequestHandler):
     def _send_json(self, status: int, data: dict):
         body = json.dumps(data).encode("utf-8")
         self.send_response(status)
-        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Type", "application/json; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
         self._send_cors_headers()
         self.end_headers()
@@ -95,8 +95,12 @@ class ReactApiHandler(BaseHTTPRequestHandler):
         # API: List Scenarios
         if path == "/api/scenarios":
             scenarios = []
+            seen_ids = set()
             for f in sorted(SCENARIOS_DIR.glob("*.json")):
                 sc = load_scenario(f)
+                if sc.id in seen_ids:
+                    continue
+                seen_ids.add(sc.id)
                 scenarios.append({
                     "id": sc.id,
                     "filename": f.name,

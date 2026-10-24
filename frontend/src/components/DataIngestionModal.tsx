@@ -301,9 +301,6 @@ export const DataIngestionModal: React.FC<DataIngestionModalProps> = ({
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <label className="text-xs sm:text-sm font-black uppercase tracking-wide text-[#14170F] flex items-center gap-2">
                     <span>Field Dispatch Radio Message</span>
-                    <span className="text-xs text-[#14170F]/60 font-normal">
-                      (Simulates SMS / VHF Radio / Field WhatsApp)
-                    </span>
                   </label>
                   <div className="flex items-center gap-2 text-xs">
                     <span className="text-[#14170F]/70 font-bold">Source Depot:</span>

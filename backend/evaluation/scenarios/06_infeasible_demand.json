@@ -1,6 +1,6 @@
 {
   "id": "SC-06",
-  "name": "Infeasible Demand — Honest Gap",
+  "name": "Infeasible Demand - Honest Gap",
   "description": "Both S2 routes from Hoskote are blocked and S1 (Peenya) has only 10 batches. Total demand is 20, reachable supply is 10. No arrangement can meet all deadlines. The system must identify infeasibility, report the shortfall, and not hallucinate supply.",
   "freshness_window": 60,
   "total_simulation_time": 360,
