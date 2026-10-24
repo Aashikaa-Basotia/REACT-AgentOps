@@ -81,9 +81,13 @@ export const ComparisonDrawer: React.FC<ComparisonDrawerProps> = ({
             </div>
           </div>
 
-          {/* Table Content */}
-          {isOpen && (
-            <div className="flex-1 overflow-auto p-4 bg-white/60">
+          {/* Table Content with Smooth Continuous Transition */}
+          <div
+            className={cn(
+              "flex-1 overflow-auto p-4 bg-white/60 transition-all duration-300 ease-in-out",
+              isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none max-h-0 p-0 overflow-hidden"
+            )}
+          >
               <div className="rounded-card border border-black/8 overflow-hidden bg-white/90 shadow-sm">
                 <table className="w-full text-left border-collapse text-sm font-mono">
                   <thead>
@@ -154,7 +158,6 @@ export const ComparisonDrawer: React.FC<ComparisonDrawerProps> = ({
                 </table>
               </div>
             </div>
-          )}
         </GlassPanel>
       </div>
     </div>

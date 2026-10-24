@@ -169,7 +169,7 @@ export const AnalyticsModal: React.FC<AnalyticsModalProps> = ({
         <div className="flex-1 overflow-y-auto p-6 space-y-6 font-sans text-sm text-[#14170F]">
           {/* TAB 1: AI-TO-ROI & POSITIONING */}
           {activeTab === 'roi' && (
-            <div className="space-y-6">
+            <div key="tab-roi" className="space-y-6 animate-fade-in">
               {/* 4 Financial & Operational KPI Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {/* KPI 1 */}
@@ -331,7 +331,7 @@ export const AnalyticsModal: React.FC<AnalyticsModalProps> = ({
 
           {/* TAB 2: 3-WAY EXPERIMENTAL BENCHMARK */}
           {activeTab === 'benchmark' && (
-            <div className="space-y-6">
+            <div key="tab-benchmark" className="space-y-6 animate-fade-in">
               {/* Executive Takeaways Banner */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="p-4 rounded-xl bg-white border border-black/10 shadow-sm">
@@ -454,7 +454,7 @@ export const AnalyticsModal: React.FC<AnalyticsModalProps> = ({
 
           {/* TAB: NEURO-SYMBOLIC INNOVATION ARCHITECTURE */}
           {activeTab === 'neuro_symbolic' && (
-            <div className="space-y-6">
+            <div key="tab-neuro" className="space-y-6 animate-fade-in">
               {/* Executive Innovation Thesis */}
               <div className="p-5 rounded-2xl bg-white border border-purple-200 space-y-3 shadow-sm">
                 <div className="flex items-center justify-between border-b border-purple-100 pb-2.5">
@@ -601,7 +601,7 @@ export const AnalyticsModal: React.FC<AnalyticsModalProps> = ({
 
           {/* TAB 3: 25-SCENARIO CRISIS RESILIENCE & CHAOS AUDIT */}
           {activeTab === 'monte_carlo' && (
-            <div className="space-y-6">
+            <div key="tab-chaos" className="space-y-6 animate-fade-in">
               {/* Trigger Control Bar */}
               <div className="p-5 rounded-2xl bg-white border border-black/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
                 <div>

@@ -261,7 +261,7 @@ export const DataIngestionModal: React.FC<DataIngestionModalProps> = ({
         <div className="flex-1 overflow-y-auto p-6 space-y-6 font-sans text-sm text-[#14170F]">
           {/* TAB 1: SUPPLIER FIELD DISPATCH */}
           {tab === 'supplier' && (
-            <div className="space-y-5">
+            <div key="ingest-supplier" className="space-y-5 animate-fade-in">
               {/* Preset Buttons */}
               <div>
                 <label className="text-xs font-black uppercase tracking-wide text-[#14170F]/70 block mb-2.5">
@@ -455,7 +455,7 @@ export const DataIngestionModal: React.FC<DataIngestionModalProps> = ({
 
           {/* TAB 2: HOSPITAL DEMAND CSV */}
           {tab === 'hospital' && (
-            <div className="space-y-5">
+            <div key="ingest-hospital" className="space-y-5 animate-fade-in">
               {/* Presets & Info */}
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
