@@ -22,7 +22,7 @@ export const LiveMathPanels: React.FC<LiveMathPanelsProps> = ({
   const sortedHospitals = [...hospitals].sort((a, b) => a.deadline_minutes - b.deadline_minutes);
 
   return (
-    <div className="flex flex-col gap-4 h-full overflow-y-auto pr-1 text-[#14170F] font-sans">
+    <div className="flex flex-col gap-4 h-full min-h-0 overflow-y-auto pr-1 text-[#14170F] font-sans">
       {/* Panel 1: Hospitals in Need (Sorted by Deadline Urgency) */}
       <div className="bg-white/90 backdrop-blur-md border border-black/10 rounded-2xl p-5 shadow-sm">
         <div className="flex items-center justify-between border-b border-black/10 pb-3.5 mb-3.5">

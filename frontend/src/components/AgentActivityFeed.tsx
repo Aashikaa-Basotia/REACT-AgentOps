@@ -41,7 +41,7 @@ export const AgentActivityFeed: React.FC<AgentActivityFeedProps> = ({
   });
 
   return (
-    <div className="flex flex-col h-full bg-white/70 backdrop-blur-md rounded-2xl border border-black/8 shadow-sm overflow-hidden text-[#14170F]">
+    <div className="flex flex-col h-full min-h-0 bg-white/70 backdrop-blur-md rounded-2xl border border-black/8 shadow-sm overflow-hidden text-[#14170F]">
       {/* Feed Header */}
       <div className="p-3.5 border-b border-black/8 flex items-center justify-between bg-white/60">
         <div className="flex items-center gap-2">
@@ -87,7 +87,7 @@ export const AgentActivityFeed: React.FC<AgentActivityFeedProps> = ({
       </div>
 
       {/* Events List */}
-      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto p-3 space-y-2.5">
+      <div ref={scrollContainerRef} className="flex-1 min-h-0 overflow-y-auto p-3 space-y-2.5">
         {filteredEvents.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center text-[#14170F]/50 gap-2 p-6 text-center">
             <Activity className="w-8 h-8 text-[#14170F]/30" />

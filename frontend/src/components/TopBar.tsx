@@ -81,7 +81,7 @@ export const TopBar: React.FC<TopBarProps> = ({
   const isCoordinator = rolePOV === 'coordinator';
 
   return (
-    <header className="min-h-[76px] py-2 px-4 sm:px-6 border-b border-black/10 bg-white/95 backdrop-blur-xl flex items-center justify-between gap-3 z-30 shrink-0 text-[#14170F] shadow-sm overflow-x-auto no-scrollbar">
+    <header className="min-h-[76px] py-2 px-4 sm:px-6 border-b border-black/10 bg-white/95 backdrop-blur-xl flex items-center justify-between gap-3 z-30 shrink-0 text-[#14170F] shadow-sm">
       {/* 1. Left: Operational Role POV Switcher */}
       <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
         <div className="flex items-center bg-black/[0.04] border border-black/10 p-1 sm:p-1.5 rounded-full shadow-inner">
@@ -247,28 +247,28 @@ export const TopBar: React.FC<TopBarProps> = ({
 
       {/* 3. Right: Case Selection Dropdown + Contextual Action Buttons */}
       <div className="flex items-center gap-2 shrink-0">
-        {/* Case Selection Dropdown (Swapped to Right Section!) */}
-        <div className="relative shrink-0">
-          <select
-            value={currentScenarioId}
-            onChange={(e) => onSelectScenario(e.target.value)}
-            disabled={isSimulating}
-            className="h-10 px-3 pr-8 rounded-full bg-white border border-black/15 text-xs sm:text-sm font-display font-bold text-[#14170F] focus:outline-none focus:border-[#8FD13F] transition-all cursor-pointer appearance-none shadow-sm disabled:opacity-50 w-36 sm:w-44 md:w-48 truncate"
-          >
-            {scenarios.map((sc) => (
-              <option key={sc.id} value={sc.id}>
-                {sc.id} — {sc.name}
-              </option>
-            ))}
-          </select>
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[#14170F]/60 text-xs font-bold">
-            ▾
-          </div>
-        </div>
-
-        {/* Action Buttons: Only Shown in Coordinator Mode; Removed in Hospital & Supplier Mode */}
+        {/* Only Shown in Coordinator Mode; Removed in Hospital & Supplier Window! */}
         {isCoordinator && (
           <>
+            {/* Case Selection Dropdown */}
+            <div className="relative shrink-0">
+              <select
+                value={currentScenarioId}
+                onChange={(e) => onSelectScenario(e.target.value)}
+                disabled={isSimulating}
+                className="h-10 px-3 pr-8 rounded-full bg-white border border-black/15 text-xs sm:text-sm font-display font-bold text-[#14170F] focus:outline-none focus:border-[#8FD13F] transition-all cursor-pointer appearance-none shadow-sm disabled:opacity-50 w-36 sm:w-44 md:w-48 truncate"
+              >
+                {scenarios.map((sc) => (
+                  <option key={sc.id} value={sc.id}>
+                    {sc.id} — {sc.name}
+                  </option>
+                ))}
+              </select>
+              <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[#14170F]/60 text-xs font-bold">
+                ▾
+              </div>
+            </div>
+
             {/* Human Sign-Off Required Button */}
             {hasPendingApproval && onOpenApproval && (
               <button
@@ -290,7 +290,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                 className="shrink-0"
                 title="Ingest Live Crisis Telemetry & CSV"
               >
-                <span className="hidden xl:inline">Ingest</span>
+                <span className="hidden 2xl:inline">Ingest</span>
               </PillButton>
             )}
 
@@ -304,7 +304,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                 className="shrink-0"
                 title="Operational Debrief Card"
               >
-                <span className="hidden xl:inline">Debrief</span>
+                <span className="hidden 2xl:inline">Debrief</span>
               </PillButton>
             )}
 
@@ -319,7 +319,6 @@ export const TopBar: React.FC<TopBarProps> = ({
                 title="NIST AI RMF Governance, RBAC Isolation & Prompt Firewall"
               >
                 <span className="hidden 2xl:inline">Governance & RBAC</span>
-                <span className="hidden xl:inline 2xl:hidden">Governance</span>
               </PillButton>
             )}
 
@@ -334,7 +333,6 @@ export const TopBar: React.FC<TopBarProps> = ({
                 title="Enterprise Accelerator Pattern & Cross-Industry Blueprint"
               >
                 <span className="hidden 2xl:inline">Industry Patterns</span>
-                <span className="hidden xl:inline 2xl:hidden">Patterns</span>
               </PillButton>
             )}
 
@@ -349,7 +347,6 @@ export const TopBar: React.FC<TopBarProps> = ({
                 title="Executive ROI, 3-Way Benchmarks & Crisis Chaos Audit"
               >
                 <span className="hidden 2xl:inline">Audit & ROI</span>
-                <span className="hidden xl:inline 2xl:hidden">Audit</span>
               </PillButton>
             )}
           </>
