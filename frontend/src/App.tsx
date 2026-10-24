@@ -197,10 +197,14 @@ export function App() {
           const grouped: Record<string, BenchmarkRow> = {};
           data.results.forEach((item: any) => {
             const scId = item.scenario_id;
+            const cleanName = (item.scenario_name || scId)
+              .replace(/â€“|â€”|\u00e2\u20ac\u201d|\u00e2\u20ac\u2014/g, '—')
+              .replace(/\s*[-—]\s*/g, ' — ')
+              .trim();
             if (!grouped[scId]) {
               grouped[scId] = {
                 scenario: scId,
-                scenario_name: item.scenario_name || scId,
+                scenario_name: cleanName,
                 fixed_rules: { tool_calls: 12, invalid_proposals: 0, unmet_batches: 0 },
                 single_agent: { tool_calls: 14, invalid_proposals: 1, unmet_batches: 10 },
                 multi_agent: { tool_calls: 13, invalid_proposals: 0, unmet_batches: 0 },
@@ -629,7 +633,14 @@ export function App() {
       .then(r => r.json())
       .then(data => {
         if (data.benchmark) {
-          setBenchmarkData(data.benchmark);
+          const cleaned = data.benchmark.map((row: any) => ({
+            ...row,
+            scenario_name: (row.scenario_name || row.scenario)
+              .replace(/â€“|â€”|\u00e2\u20ac\u201d|\u00e2\u20ac\u2014/g, '—')
+              .replace(/\s*[-—]\s*/g, ' — ')
+              .trim(),
+          }));
+          setBenchmarkData(cleaned);
         }
         setIsBenchmarkLoading(false);
       })
