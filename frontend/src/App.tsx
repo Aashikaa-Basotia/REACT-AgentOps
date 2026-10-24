@@ -640,8 +640,8 @@ export function App() {
 
   return (
     <div className="min-h-screen w-full flex flex-col bg-[#F8F9F5] text-[#14170F] overflow-y-auto font-sans select-none relative">
-      {/* 0. Full-Bleed Animated Abstract Network Background (Vivid Cyber-Emerald Pulses) */}
-      <NetworkBackground opacity={0.85} interactive={true} />
+      {/* 0. Full-Bleed Animated Abstract Network Background (Subtle Organic Pulses) */}
+      <NetworkBackground opacity={0.18} interactive={true} />
 
       {/* 1. Header Navigation & Control Bar with 3-Role POV Switcher */}
       <TopBar
