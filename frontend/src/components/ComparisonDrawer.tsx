@@ -29,7 +29,7 @@ export const ComparisonDrawer: React.FC<ComparisonDrawerProps> = ({
     <div
       className={cn(
         'fixed bottom-0 left-0 right-0 z-30 transition-all duration-300 pointer-events-none',
-        isOpen ? 'h-84' : 'h-12'
+        isOpen ? 'h-[460px]' : 'h-16'
       )}
     >
       <div className="w-full h-full px-4 max-w-7xl mx-auto flex flex-col">
@@ -37,43 +37,46 @@ export const ComparisonDrawer: React.FC<ComparisonDrawerProps> = ({
           variant="light"
           elevation="elevated"
           rounded="panel"
-          className="w-full h-full border border-black/8 shadow-2xl flex flex-col overflow-hidden pointer-events-auto rounded-b-none bg-white/90 backdrop-blur-xl"
+          className="w-full h-full border border-black/10 shadow-2xl flex flex-col overflow-hidden pointer-events-auto rounded-b-none bg-white/95 backdrop-blur-xl"
         >
           {/* Header Bar */}
           <div
-            className="h-12 px-4 flex items-center justify-between cursor-pointer border-b border-black/8 hover:bg-black/[0.02] transition-colors select-none bg-white/70"
+            className="h-16 px-6 flex items-center justify-between cursor-pointer border-b border-black/10 hover:bg-black/[0.02] transition-colors select-none bg-white/80"
             onClick={() => setIsOpen(!isOpen)}
           >
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2 text-xs font-bold text-[#14170F] uppercase tracking-wider font-mono">
-                <Scale className="w-4 h-4 text-[#3E6B4F]" />
-                <span>Empirical Comparative Evaluation Proof</span>
+            <div className="flex items-center gap-3.5">
+              <div className="flex items-center gap-2.5">
+                <Scale className="w-5 h-5 text-[#2D5A1E]" />
+                <span className="text-sm sm:text-base font-display font-black text-[#14170F] tracking-wide">
+                  Empirical Comparative Evaluation Proof
+                </span>
               </div>
-              <span className="text-[10px] bg-[#8FD13F]/25 border border-[#8FD13F]/40 text-[#2D5A1E] px-2.5 py-0.5 rounded-full flex items-center gap-1 font-mono">
-                <ShieldCheck className="w-3 h-3 text-[#5B9C20]" />
+              <span className="text-xs bg-[#8FD13F]/25 border border-[#8FD13F]/40 text-[#2D5A1E] px-3 py-1 rounded-full flex items-center gap-1.5 font-mono font-bold">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#5B9C20]" />
                 Strict Invariants: 0 Illegal Commitments
               </span>
-              <span className="text-[10px] text-[#14170F]/55 font-mono hidden md:inline">
+              <span className="text-xs text-[#14170F]/65 font-medium hidden lg:inline">
                 Multi-Agent Coordinator vs Monolithic LLM vs Fixed Greedy Rules
               </span>
             </div>
 
-            <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center gap-3" onClick={(e) => e.stopPropagation()}>
               <PillButton
                 variant="secondary"
-                size="sm"
+                size="md"
                 onClick={onRefresh}
                 disabled={isLoading}
-                icon={<RotateCw className={cn('w-3 h-3 text-[#3E6B4F]', isLoading && 'animate-spin')} />}
+                icon={<RotateCw className={cn('w-3.5 h-3.5 text-[#3E6B4F]', isLoading && 'animate-spin')} />}
               >
                 {isLoading ? 'Running Suite...' : 'Re-Run Matrix'}
               </PillButton>
 
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-7 h-7 rounded-full hover:bg-black/5 flex items-center justify-center text-[#14170F]/60"
+                className="w-9 h-9 rounded-xl hover:bg-black/5 flex items-center justify-center text-[#14170F]/70 transition-colors"
+                title={isOpen ? "Collapse Evaluation Proof Drawer" : "Expand Evaluation Proof Drawer"}
               >
-                {isOpen ? <ChevronDown className="w-4 h-4" /> : <ChevronUp className="w-4 h-4" />}
+                {isOpen ? <ChevronDown className="w-5 h-5" /> : <ChevronUp className="w-5 h-5" />}
               </button>
             </div>
           </div>
