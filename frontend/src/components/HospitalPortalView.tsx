@@ -128,25 +128,25 @@ export const HospitalPortalView: React.FC<HospitalPortalViewProps> = ({
   };
 
   return (
-    <div className="flex-1 flex flex-col p-6 sm:p-8 space-y-8 bg-[#F8F9F5] text-[#14170F] font-sans">
+    <div className="relative z-10 flex-1 flex flex-col p-6 sm:p-10 space-y-8 bg-transparent text-[#14170F] font-sans">
       {/* Top Hospital Switcher Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white border border-black/10 p-6 rounded-2xl shadow-sm">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-[#8FD13F]/20 border border-[#8FD13F]/50 flex items-center justify-center text-[#2D5A1E] font-bold shadow-xs">
-            <Hospital className="w-6 h-6 text-[#3E6B4F]" />
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 bg-white/90 backdrop-blur-md border border-black/10 p-7 sm:p-8 rounded-3xl shadow-md">
+        <div className="flex items-center gap-5">
+          <div className="w-14 h-14 rounded-2xl bg-[#8FD13F]/25 border border-[#8FD13F]/50 flex items-center justify-center text-[#2D5A1E] font-bold shadow-sm shrink-0">
+            <Hospital className="w-7 h-7 text-[#2D5A1E]" />
           </div>
           <div>
-            <div className="text-xs uppercase font-extrabold tracking-wider text-[#3E6B4F]">
+            <div className="text-sm uppercase font-extrabold tracking-widest text-[#2E7D32]">
               Facility Command & Replenishment Portal
             </div>
-            <h1 className="text-xl sm:text-2xl font-display font-black text-[#14170F] flex items-center gap-3 mt-0.5">
+            <h1 className="text-2xl sm:text-3xl font-display font-black text-[#14170F] flex items-center gap-3 mt-1 flex-wrap">
               <span>{displayName}</span>
               {activeHospital ? (
-                <span className="text-xs font-mono font-bold bg-[#D9534F]/15 text-[#8C2421] border border-[#D9534F]/30 px-3 py-1 rounded-full">
+                <span className="text-sm font-mono font-bold bg-[#D9534F]/15 text-[#8C2421] border border-[#D9534F]/30 px-3.5 py-1 rounded-full">
                   Active Crisis Node ({activeHospital.id})
                 </span>
               ) : (
-                <span className="text-xs font-mono font-bold bg-[#8FD13F]/20 text-[#2D5A1E] border border-[#8FD13F]/40 px-3 py-1 rounded-full">
+                <span className="text-sm font-mono font-bold bg-[#8FD13F]/20 text-[#2D5A1E] border border-[#8FD13F]/40 px-3.5 py-1 rounded-full">
                   Nominal Registry ({registryRecord?.oxygen_buffer_hours ? `${registryRecord.oxygen_buffer_hours}h Buffer` : 'Nominal Buffer'})
                 </span>
               )}
@@ -155,8 +155,8 @@ export const HospitalPortalView: React.FC<HospitalPortalViewProps> = ({
         </div>
 
         {/* Right Facility POV Selector */}
-        <div className="flex items-center gap-3">
-          <label className="text-sm font-bold text-[#14170F]/70 whitespace-nowrap">Active Facility POV:</label>
+        <div className="flex items-center gap-3.5">
+          <label className="text-base font-bold text-[#14170F] whitespace-nowrap">Active Facility POV:</label>
           <select
             value={selectedHospitalId}
             onChange={e => {
@@ -167,7 +167,7 @@ export const HospitalPortalView: React.FC<HospitalPortalViewProps> = ({
               setSubmitError(null);
               if (onSelectHospital) onSelectHospital(val);
             }}
-            className="bg-white border border-black/15 text-[#14170F] text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#8FD13F] font-bold shadow-sm max-w-[340px]"
+            className="bg-white border border-black/20 text-[#14170F] text-base rounded-2xl px-4 py-3 focus:outline-none focus:border-[#8FD13F] font-bold shadow-sm min-w-[280px] max-w-[380px] h-13"
           >
             <optgroup label="Scenario Facilities">
               {activeHospitals.map(h => (
@@ -195,25 +195,25 @@ export const HospitalPortalView: React.FC<HospitalPortalViewProps> = ({
       </div>
 
       {/* SECTION 1: Interactive Hospital Request Entry Form */}
-      <div className="bg-white border border-black/10 rounded-2xl p-6 shadow-sm">
-        <div className="flex items-center justify-between border-b border-black/8 pb-4 mb-5">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-[#8FD13F]/20 border border-[#8FD13F]/40 flex items-center justify-center text-[#2D5A1E]">
-              <Send className="w-4 h-4 text-[#3E6B4F]" />
+      <div className="bg-white/90 backdrop-blur-md border border-black/10 rounded-3xl p-7 sm:p-8 shadow-md">
+        <div className="flex items-center justify-between border-b border-black/10 pb-5 mb-6">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-[#8FD13F]/25 border border-[#8FD13F]/50 flex items-center justify-center text-[#2D5A1E] shrink-0">
+              <Send className="w-6 h-6 text-[#2D5A1E]" />
             </div>
             <div>
-              <h2 className="text-base font-display font-bold uppercase tracking-wider text-[#14170F] flex items-center gap-2.5">
+              <h2 className="text-lg sm:text-xl font-display font-black tracking-wide text-[#14170F] flex items-center gap-3">
                 <span>Submit Hospital Resource Request</span>
-                <span className="text-xs font-mono bg-[#8FD13F]/20 text-[#2D5A1E] border border-[#8FD13F]/40 px-2.5 py-0.5 rounded-full font-bold">
+                <span className="text-xs sm:text-sm font-mono bg-[#8FD13F]/25 text-[#2D5A1E] border border-[#8FD13F]/40 px-3 py-1 rounded-full font-bold">
                   Authoritative Backend Persistence
                 </span>
               </h2>
-              <p className="text-sm text-[#14170F]/70 mt-0.5">
+              <p className="text-base text-[#14170F]/70 mt-1">
                 Directly enters urgent replenishment demand into the Regional Coordinator's planning pipeline.
               </p>
             </div>
           </div>
-          <span className="text-sm font-mono font-bold text-[#14170F]/60">
+          <span className="text-base font-mono font-black text-[#14170F]/70 bg-black/5 px-3.5 py-1.5 rounded-xl border border-black/10">
             Clock: T+{simulationMinute}m
           </span>
         </div>
@@ -237,25 +237,25 @@ export const HospitalPortalView: React.FC<HospitalPortalViewProps> = ({
         )}
 
         {submitError && (
-          <div className="mb-5 p-4 rounded-xl bg-[#D9534F]/15 border border-[#D9534F]/40 text-[#8C2421] text-sm flex items-start gap-3 shadow-xs animate-fadeIn">
-            <AlertTriangle className="w-5 h-5 text-[#D9534F] shrink-0 mt-0.5" />
+          <div className="mb-6 p-4 rounded-2xl bg-[#D9534F]/15 border border-[#D9534F]/40 text-[#8C2421] text-base flex items-start gap-3 shadow-xs animate-fadeIn">
+            <AlertTriangle className="w-6 h-6 text-[#D9534F] shrink-0 mt-0.5" />
             <div>
-              <div className="font-bold">Validation or Submission Failure</div>
-              <p className="text-xs text-[#8C2421] mt-0.5">{submitError}</p>
+              <div className="font-bold text-base">Validation or Submission Failure</div>
+              <p className="text-sm text-[#8C2421] mt-0.5">{submitError}</p>
             </div>
           </div>
         )}
 
-        <form onSubmit={handleSubmitRequest} className="grid grid-cols-1 md:grid-cols-12 gap-5">
+        <form onSubmit={handleSubmitRequest} className="grid grid-cols-1 md:grid-cols-12 gap-6">
           {/* Facility Selection */}
           <div className="col-span-12 sm:col-span-4">
-            <label className="block text-sm font-bold text-[#14170F] mb-1.5">
+            <label className="block text-base font-bold text-[#14170F] mb-2">
               Requesting Healthcare Facility
             </label>
             <select
               value={formFacilityId}
               onChange={e => setFormFacilityId(e.target.value)}
-              className="w-full h-11 px-3.5 bg-white border border-black/15 rounded-xl text-sm font-bold text-[#14170F] focus:outline-none focus:border-[#8FD13F] shadow-xs"
+              className="w-full h-13 px-4 bg-white border border-black/20 rounded-2xl text-base font-bold text-[#14170F] focus:outline-none focus:border-[#8FD13F] shadow-sm"
             >
               <optgroup label="Active Scenario Facilities">
                 {activeHospitals.map(h => (
@@ -280,13 +280,13 @@ export const HospitalPortalView: React.FC<HospitalPortalViewProps> = ({
 
           {/* Resource Type */}
           <div className="col-span-12 sm:col-span-4">
-            <label className="block text-sm font-bold text-[#14170F] mb-1.5">
+            <label className="block text-base font-bold text-[#14170F] mb-2">
               Resource Commodity Type
             </label>
             <select
               value={formResourceType}
               onChange={e => setFormResourceType(e.target.value)}
-              className="w-full h-11 px-3.5 bg-white border border-black/15 rounded-xl text-sm font-semibold text-[#14170F] focus:outline-none focus:border-[#8FD13F] shadow-xs"
+              className="w-full h-13 px-4 bg-white border border-black/20 rounded-2xl text-base font-semibold text-[#14170F] focus:outline-none focus:border-[#8FD13F] shadow-sm"
             >
               <option value="liquid_oxygen">Liquid Medical Oxygen (Cryogenic Batches)</option>
               <option value="oxygen_batches">High-Pressure Oxygen Cylinders</option>
@@ -298,7 +298,7 @@ export const HospitalPortalView: React.FC<HospitalPortalViewProps> = ({
 
           {/* Quantity */}
           <div className="col-span-6 sm:col-span-2">
-            <label className="block text-sm font-bold text-[#14170F] mb-1.5">
+            <label className="block text-base font-bold text-[#14170F] mb-2">
               Required Batches
             </label>
             <input
@@ -307,17 +307,17 @@ export const HospitalPortalView: React.FC<HospitalPortalViewProps> = ({
               max={50}
               value={formQuantity}
               onChange={e => setFormQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-              className="w-full h-11 px-3.5 bg-white border border-black/15 rounded-xl text-sm font-mono font-black text-[#14170F] focus:outline-none focus:border-[#8FD13F] shadow-xs"
+              className="w-full h-13 px-4 bg-white border border-black/20 rounded-2xl text-base font-mono font-black text-[#14170F] focus:outline-none focus:border-[#8FD13F] shadow-sm"
             />
           </div>
 
           {/* Deadline */}
           <div className="col-span-12 sm:col-span-3">
-            <div className="flex items-center justify-between mb-1.5">
-              <label className="text-sm font-bold text-[#14170F]">
+            <div className="flex items-center justify-between mb-2">
+              <label className="text-base font-bold text-[#14170F]">
                 Deadline (T+min)
               </label>
-              <span className="text-xs font-mono text-[#87550E] font-bold">
+              <span className="text-sm font-mono text-[#87550E] font-bold">
                 +{Math.max(0, formDeadline - simulationMinute)}m from now
               </span>
             </div>
@@ -328,16 +328,16 @@ export const HospitalPortalView: React.FC<HospitalPortalViewProps> = ({
               step={15}
               value={formDeadline}
               onChange={e => setFormDeadline(parseInt(e.target.value) || simulationMinute + 90)}
-              className="w-full h-11 px-3.5 bg-white border border-black/15 rounded-xl text-sm font-mono font-black text-[#87550E] focus:outline-none focus:border-[#8FD13F] shadow-xs"
+              className="w-full h-13 px-4 bg-white border border-black/20 rounded-2xl text-base font-mono font-black text-[#87550E] focus:outline-none focus:border-[#8FD13F] shadow-sm"
             />
             {/* Quick-Preset Chips */}
-            <div className="flex items-center gap-1.5 mt-2">
+            <div className="flex items-center gap-2 mt-2.5">
               {[30, 60, 90, 120].map(mins => (
                 <button
                   key={mins}
                   type="button"
                   onClick={() => setFormDeadline(simulationMinute + mins)}
-                  className={`text-xs font-mono px-2.5 py-1 rounded-md border transition-colors cursor-pointer ${
+                  className={`text-sm font-mono font-bold px-3 py-1 rounded-xl border transition-colors cursor-pointer ${
                     formDeadline === simulationMinute + mins
                       ? 'bg-[#E8A23D]/25 text-[#87550E] border-[#E8A23D] font-black'
                       : 'bg-black/5 text-[#14170F]/70 border-black/10 hover:text-[#14170F]'
@@ -351,13 +351,13 @@ export const HospitalPortalView: React.FC<HospitalPortalViewProps> = ({
 
           {/* Urgency / Priority */}
           <div className="col-span-12 sm:col-span-4">
-            <label className="block text-sm font-bold text-[#14170F] mb-1.5">
+            <label className="block text-base font-bold text-[#14170F] mb-2">
               Clinical Triage Priority
             </label>
             <select
               value={formPriority}
               onChange={e => setFormPriority(e.target.value as any)}
-              className="w-full h-11 px-3.5 bg-white border border-black/15 rounded-xl text-sm font-semibold text-[#14170F] focus:outline-none focus:border-[#8FD13F] shadow-xs"
+              className="w-full h-13 px-4 bg-white border border-black/20 rounded-2xl text-base font-semibold text-[#14170F] focus:outline-none focus:border-[#8FD13F] shadow-sm"
             >
               <option value="CRITICAL">CRITICAL — Depletion Imminent (&lt;60m margin)</option>
               <option value="URGENT">URGENT — Severe Deficit Predicted (&lt;120m margin)</option>
@@ -367,7 +367,7 @@ export const HospitalPortalView: React.FC<HospitalPortalViewProps> = ({
 
           {/* Clinical Notes */}
           <div className="col-span-12 sm:col-span-5">
-            <label className="block text-sm font-bold text-[#14170F] mb-1.5">
+            <label className="block text-base font-bold text-[#14170F] mb-2">
               Clinical Situation / Emergency Notes
             </label>
             <input
@@ -375,7 +375,7 @@ export const HospitalPortalView: React.FC<HospitalPortalViewProps> = ({
               placeholder="e.g. ICU burn rate surged 150%; road flooding isolated southern gate..."
               value={formNotes}
               onChange={e => setFormNotes(e.target.value)}
-              className="w-full h-11 px-3.5 bg-white border border-black/15 rounded-xl text-sm text-[#14170F] placeholder-[#14170F]/40 focus:outline-none focus:border-[#8FD13F] shadow-xs"
+              className="w-full h-13 px-4 bg-white border border-black/20 rounded-2xl text-base text-[#14170F] placeholder-[#14170F]/40 focus:outline-none focus:border-[#8FD13F] shadow-sm"
             />
           </div>
 
@@ -384,13 +384,13 @@ export const HospitalPortalView: React.FC<HospitalPortalViewProps> = ({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full h-11 bg-[#8FD13F] hover:bg-[#7ec032] disabled:opacity-50 text-[#14170F] font-bold text-sm rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+              className="w-full h-13 sm:h-14 bg-[#8FD13F] hover:bg-[#7ec032] disabled:opacity-50 text-[#14170F] font-black text-base sm:text-lg rounded-2xl transition-all shadow-md flex items-center justify-center gap-2.5 cursor-pointer active:scale-95"
             >
               {isSubmitting ? (
                 <span>Submitting...</span>
               ) : (
                 <>
-                  <Send className="w-4 h-4 text-[#2D5A1E]" />
+                  <Send className="w-5 h-5 text-[#2D5A1E]" />
                   <span>Submit Request</span>
                 </>
               )}
@@ -400,49 +400,49 @@ export const HospitalPortalView: React.FC<HospitalPortalViewProps> = ({
       </div>
 
       {/* SECTION 2: Active & Historical Requests Ledger */}
-      <div className="bg-white border border-black/10 rounded-2xl p-6 shadow-sm">
-        <div className="flex items-center justify-between border-b border-black/8 pb-4 mb-4">
-          <h3 className="text-sm font-bold uppercase tracking-wider text-[#14170F] flex items-center gap-2.5">
-            <FileText className="w-4 h-4 text-[#3E6B4F]" />
+      <div className="bg-white/90 backdrop-blur-md border border-black/10 rounded-3xl p-7 sm:p-8 shadow-md">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-black/10 pb-5 mb-5 gap-3">
+          <h3 className="text-lg sm:text-xl font-display font-black tracking-wide text-[#14170F] flex items-center gap-3">
+            <FileText className="w-5 h-5 text-[#2D5A1E]" />
             <span>Submitted Hospital Requests for {displayName}</span>
-            <span className="text-xs font-mono bg-[#8FD13F]/20 text-[#2D5A1E] border border-[#8FD13F]/40 px-2.5 py-0.5 rounded-full font-bold">
+            <span className="text-sm font-mono bg-[#8FD13F]/25 text-[#2D5A1E] border border-[#8FD13F]/40 px-3.5 py-1 rounded-full font-bold">
               {facilityRequests.length} Dynamic Requests Recorded
             </span>
           </h3>
-          <span className="text-sm font-mono text-[#14170F]/60">
+          <span className="text-base font-mono font-semibold text-[#14170F]/70">
             Seeded Baseline: {seededDemand}b | Dynamic Submitted: {submittedDemand}b
           </span>
         </div>
 
         {facilityRequests.length === 0 ? (
-          <div className="p-8 text-center text-[#14170F]/60 text-sm bg-black/[0.02] rounded-xl border border-dashed border-black/15">
+          <div className="p-10 text-center text-[#14170F]/60 text-base bg-black/[0.02] rounded-2xl border border-dashed border-black/15">
             No dynamic requests submitted yet for this facility. Baseline scenario demand is {seededDemand} batches.
             Use the form above to submit additional emergency requests.
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm font-mono">
+            <table className="w-full text-left text-base font-mono">
               <thead>
-                <tr className="border-b border-black/10 text-xs uppercase text-[#14170F]/60 bg-black/[0.02]">
-                  <th className="py-3 px-4">Request ID</th>
-                  <th className="py-3 px-4">Commodity</th>
-                  <th className="py-3 px-4">Quantity</th>
-                  <th className="py-3 px-4">Deadline</th>
-                  <th className="py-3 px-4">Priority</th>
-                  <th className="py-3 px-4">Submitted At</th>
-                  <th className="py-3 px-4">Lifecycle Status</th>
-                  <th className="py-3 px-4">Allocated Batches</th>
+                <tr className="border-b border-black/10 text-sm uppercase text-[#14170F]/70 bg-black/[0.03] font-bold">
+                  <th className="py-4 px-4">Request ID</th>
+                  <th className="py-4 px-4">Commodity</th>
+                  <th className="py-4 px-4">Quantity</th>
+                  <th className="py-4 px-4">Deadline</th>
+                  <th className="py-4 px-4">Priority</th>
+                  <th className="py-4 px-4">Submitted At</th>
+                  <th className="py-4 px-4">Lifecycle Status</th>
+                  <th className="py-4 px-4">Allocated Batches</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-black/8">
                 {facilityRequests.map(r => (
                   <tr key={r.request_id} className="hover:bg-black/[0.02] transition-colors">
-                    <td className="py-3 px-4 font-bold text-[#3E6B4F]">{r.request_id}</td>
-                    <td className="py-3 px-4 text-[#14170F]">{r.resource_type}</td>
-                    <td className="py-3 px-4 font-bold text-[#14170F]">{r.quantity_batches} batches</td>
-                    <td className="py-3 px-4 text-[#87550E] font-bold">T+{r.deadline_minutes}m</td>
-                    <td className="py-3 px-4">
-                      <span className={`px-2 py-0.5 rounded text-xs font-bold ${
+                    <td className="py-4 px-4 font-bold text-[#2D5A1E]">{r.request_id}</td>
+                    <td className="py-4 px-4 text-[#14170F] font-semibold">{r.resource_type}</td>
+                    <td className="py-4 px-4 font-black text-[#14170F]">{r.quantity_batches} batches</td>
+                    <td className="py-4 px-4 text-[#87550E] font-bold">T+{r.deadline_minutes}m</td>
+                    <td className="py-4 px-4">
+                      <span className={`px-3 py-1 rounded-lg text-sm font-bold ${
                         r.priority === 'CRITICAL'
                           ? 'bg-[#D9534F]/20 text-[#8C2421] border border-[#D9534F]/40'
                           : r.priority === 'URGENT'
@@ -452,9 +452,9 @@ export const HospitalPortalView: React.FC<HospitalPortalViewProps> = ({
                         {r.priority}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-[#14170F]/60">T+{r.created_at_minute}m</td>
-                    <td className="py-3 px-4">
-                      <span className={`px-2.5 py-0.5 rounded text-xs font-bold ${
+                    <td className="py-4 px-4 text-[#14170F]/60">T+{r.created_at_minute}m</td>
+                    <td className="py-4 px-4">
+                      <span className={`px-3 py-1 rounded-lg text-sm font-bold ${
                         r.status === 'ALLOCATED'
                           ? 'bg-[#8FD13F]/25 text-[#2D5A1E] border border-[#8FD13F]/50'
                           : r.status === 'ALLOCATING' || r.status === 'PENDING_APPROVAL'
@@ -466,7 +466,7 @@ export const HospitalPortalView: React.FC<HospitalPortalViewProps> = ({
                         {r.status}
                       </span>
                     </td>
-                    <td className="py-3 px-4 font-bold text-[#2D5A1E]">
+                    <td className="py-4 px-4 font-black text-[#2D5A1E] text-base">
                       {r.allocated_batches} / {r.quantity_batches} batches
                     </td>
                   </tr>
@@ -480,27 +480,27 @@ export const HospitalPortalView: React.FC<HospitalPortalViewProps> = ({
       {/* SECTION 3: Live Buffer Telemetry & Critical Indicators */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Tank Level Gauge */}
-        <div className="bg-white border border-black/10 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
-          <div className="flex items-center justify-between border-b border-black/8 pb-3 mb-4">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-[#14170F] flex items-center gap-2">
-              <Droplet className="w-4 h-4 text-[#3E6B4F]" />
+        <div className="bg-white/90 backdrop-blur-md border border-black/10 rounded-3xl p-7 shadow-md flex flex-col justify-between">
+          <div className="flex items-center justify-between border-b border-black/10 pb-4 mb-4">
+            <h3 className="text-base font-display font-black uppercase tracking-wider text-[#14170F] flex items-center gap-2.5">
+              <Droplet className="w-5 h-5 text-[#2D5A1E]" />
               <span>Cryogenic Tank Buffer</span>
             </h3>
-            <span className={`text-xs font-mono font-bold px-2.5 py-1 rounded-full ${
+            <span className={`text-sm font-mono font-bold px-3 py-1.5 rounded-full ${
               tankPercentage > 50 ? 'bg-[#8FD13F]/25 text-[#2D5A1E]' : 'bg-[#D9534F]/20 text-[#8C2421]'
             }`}>
               {tankPercentage}% Buffer
             </span>
           </div>
 
-          <div className="my-auto py-2">
-            <div className="flex items-center justify-between text-sm font-mono text-[#14170F]/70 mb-2 font-medium">
+          <div className="my-auto py-3">
+            <div className="flex items-center justify-between text-base font-mono text-[#14170F]/80 mb-2.5 font-bold">
               <span>On-Hand: {currentTotal} batches</span>
               <span>Total Demand: {requested} batches</span>
             </div>
-            <div className="w-full h-8 bg-black/[0.04] rounded-xl p-1 border border-black/8 relative overflow-hidden">
+            <div className="w-full h-9 bg-black/[0.04] rounded-2xl p-1 border border-black/10 relative overflow-hidden">
               <div
-                className={`h-full rounded-lg transition-all duration-500 ${
+                className={`h-full rounded-xl transition-all duration-500 ${
                   tankPercentage > 50
                     ? 'bg-gradient-to-r from-[#8FD13F] to-[#5B9C20]'
                     : 'bg-gradient-to-r from-[#D9534F] to-[#E8A23D] animate-pulse'
@@ -508,130 +508,130 @@ export const HospitalPortalView: React.FC<HospitalPortalViewProps> = ({
                 style={{ width: `${Math.max(8, tankPercentage)}%` }}
               />
             </div>
-            <div className="mt-3 text-center font-mono text-xs text-[#14170F]/60">
+            <div className="mt-3 text-center font-mono text-sm text-[#14170F]/70 font-semibold">
               Capacity: {registryRecord.bed_count} beds ({registryRecord.icu_beds} ICU Beds Active)
             </div>
           </div>
 
-          <div className="border-t border-black/8 pt-3 text-sm text-[#14170F]/70 flex items-center justify-between">
-            <span>Demand Composition:</span>
-            <span className="font-mono text-xs font-bold text-[#14170F]">
+          <div className="border-t border-black/10 pt-4 text-base text-[#14170F]/70 flex items-center justify-between">
+            <span className="font-semibold">Demand Composition:</span>
+            <span className="font-mono text-sm font-bold text-[#14170F]">
               {seededDemand} seeded + {submittedDemand} submitted
             </span>
           </div>
         </div>
 
         {/* Depletion Countdown Clock */}
-        <div className="bg-white border border-black/10 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
-          <div className="flex items-center justify-between border-b border-black/8 pb-3 mb-4">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-[#14170F] flex items-center gap-2">
-              <Clock className="w-4 h-4 text-[#87550E]" />
+        <div className="bg-white/90 backdrop-blur-md border border-black/10 rounded-3xl p-7 shadow-md flex flex-col justify-between">
+          <div className="flex items-center justify-between border-b border-black/10 pb-4 mb-4">
+            <h3 className="text-base font-display font-black uppercase tracking-wider text-[#14170F] flex items-center gap-2.5">
+              <Clock className="w-5 h-5 text-[#87550E]" />
               <span>Deadline Window</span>
             </h3>
-            <span className="text-xs font-mono bg-black/5 text-[#14170F]/70 px-2.5 py-1 rounded-full font-bold">
+            <span className="text-sm font-mono bg-black/5 text-[#14170F]/70 px-3 py-1.5 rounded-full font-bold">
               T+{simulationMinute}m Current
             </span>
           </div>
 
           <div className="my-auto text-center py-4">
-            <div className="text-4xl font-mono font-black text-[#87550E] tracking-tight">
+            <div className="text-5xl font-stat font-black text-[#87550E] tracking-tight">
               T+{deadline}m
             </div>
-            <p className="text-sm text-[#14170F]/70 mt-1 font-medium">
+            <p className="text-base text-[#14170F]/70 mt-1.5 font-semibold">
               Replenishment Must Arrive Before Depletion
             </p>
-            <div className="mt-3 inline-block bg-[#E8A23D]/20 border border-[#E8A23D]/40 px-3.5 py-1 rounded-full text-xs font-mono font-bold text-[#87550E]">
+            <div className="mt-3.5 inline-block bg-[#E8A23D]/20 border border-[#E8A23D]/40 px-4 py-1.5 rounded-full text-sm font-mono font-black text-[#87550E]">
               {timeRemaining > 0 ? `${timeRemaining} minutes remaining in margin` : 'DEADLINE REACHED'}
             </div>
           </div>
 
-          <div className="border-t border-black/8 pt-3 text-sm text-[#14170F]/70 flex items-center justify-between">
-            <span>Net Deficit:</span>
-            <span className={`font-mono font-bold ${deficit > 0 ? 'text-[#8C2421]' : 'text-[#2D5A1E]'}`}>
+          <div className="border-t border-black/10 pt-4 text-base text-[#14170F]/70 flex items-center justify-between">
+            <span className="font-semibold">Net Deficit:</span>
+            <span className={`font-mono text-base font-black ${deficit > 0 ? 'text-[#8C2421]' : 'text-[#2D5A1E]'}`}>
               {deficit > 0 ? `-${deficit} batches needed` : 'Replenishment Fully Covered'}
             </span>
           </div>
         </div>
 
         {/* Nodal Officer Contact & Facility Vitals */}
-        <div className="bg-white border border-black/10 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
-          <div className="flex items-center justify-between border-b border-black/8 pb-3 mb-3">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-[#14170F] flex items-center gap-2">
-              <UserCheck className="w-4 h-4 text-[#3E6B4F]" />
+        <div className="bg-white/90 backdrop-blur-md border border-black/10 rounded-3xl p-7 shadow-md flex flex-col justify-between">
+          <div className="flex items-center justify-between border-b border-black/10 pb-4 mb-4">
+            <h3 className="text-base font-display font-black uppercase tracking-wider text-[#14170F] flex items-center gap-2.5">
+              <UserCheck className="w-5 h-5 text-[#2D5A1E]" />
               <span>Facility Profile</span>
             </h3>
-            <span className="text-xs font-mono text-[#14170F]/60 font-semibold">
+            <span className="text-sm font-mono text-[#14170F]/70 font-bold">
               {registryRecord.type}
             </span>
           </div>
 
-          <div className="space-y-2.5 text-sm text-[#14170F] py-1">
+          <div className="space-y-3 text-base text-[#14170F] py-1">
             <div>
-              <span className="text-[#14170F]/50 block text-xs uppercase font-semibold">Zone Location</span>
-              <span className="font-bold text-[#14170F]">{registryRecord.zone}</span>
+              <span className="text-[#14170F]/60 block text-xs uppercase font-extrabold tracking-wider">Zone Location</span>
+              <span className="font-black text-lg text-[#14170F]">{registryRecord.zone}</span>
             </div>
             <div>
-              <span className="text-[#14170F]/50 block text-xs uppercase font-semibold">Address</span>
-              <span className="font-medium text-[#14170F]/80 text-xs line-clamp-1">{registryRecord.address}</span>
+              <span className="text-[#14170F]/60 block text-xs uppercase font-extrabold tracking-wider">Address</span>
+              <span className="font-semibold text-[#14170F]/85 text-sm line-clamp-1">{registryRecord.address}</span>
             </div>
             <div>
-              <span className="text-[#14170F]/50 block text-xs uppercase font-semibold">Designated Nodal Officer</span>
-              <span className="font-bold text-[#2D5A1E]">{registryRecord.nodal_officer}</span>
+              <span className="text-[#14170F]/60 block text-xs uppercase font-extrabold tracking-wider">Designated Nodal Officer</span>
+              <span className="font-black text-lg text-[#2D5A1E]">{registryRecord.nodal_officer}</span>
             </div>
           </div>
 
-          <div className="border-t border-black/8 pt-3 text-sm text-[#14170F]/70 flex items-center justify-between">
-            <span className="flex items-center gap-1.5 font-medium">
-              <PhoneCall className="w-4 h-4 text-[#3E6B4F]" /> Emergency Ops:
+          <div className="border-t border-black/10 pt-4 text-base text-[#14170F]/70 flex items-center justify-between">
+            <span className="flex items-center gap-2 font-semibold">
+              <PhoneCall className="w-5 h-5 text-[#2D5A1E]" /> Emergency Ops:
             </span>
-            <span className="font-mono font-bold text-[#14170F]">{registryRecord.phone}</span>
+            <span className="font-mono font-black text-base sm:text-lg text-[#14170F]">{registryRecord.phone}</span>
           </div>
         </div>
       </div>
 
       {/* SECTION 4: Inbound Supply Corridors & Active Deliveries */}
-      <div className="bg-white border border-black/10 rounded-2xl p-6 shadow-sm">
-        <h3 className="text-sm font-bold uppercase tracking-wider text-[#14170F] mb-4 flex items-center gap-2.5">
-          <Navigation className="w-4 h-4 text-[#3E6B4F]" />
+      <div className="bg-white/90 backdrop-blur-md border border-black/10 rounded-3xl p-7 sm:p-8 shadow-md">
+        <h3 className="text-lg sm:text-xl font-display font-black tracking-wide text-[#14170F] mb-5 flex items-center gap-3">
+          <Navigation className="w-5 h-5 text-[#2D5A1E]" />
           <span>Inbound Supply Corridors & Delivery Reservations</span>
-          <span className="text-xs font-mono bg-black/5 text-[#14170F]/70 px-2.5 py-0.5 rounded-full font-bold">
+          <span className="text-sm font-mono bg-black/5 text-[#14170F]/70 px-3 py-1 rounded-full font-bold">
             {inboundRoutes.length} Connected Routes
           </span>
         </h3>
 
         {inboundRoutes.length === 0 ? (
-          <div className="p-8 text-center text-[#14170F]/50 text-sm bg-black/[0.02] rounded-xl border border-dashed border-black/15">
+          <div className="p-10 text-center text-[#14170F]/60 text-base bg-black/[0.02] rounded-2xl border border-dashed border-black/15">
             No active emergency routes connected in the current scenario.
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {inboundRoutes.map(r => (
               <div
                 key={r.id}
-                className="p-4 rounded-xl border border-black/10 bg-[#F8F9F5] flex items-center justify-between shadow-xs"
+                className="p-5 rounded-2xl border border-black/10 bg-[#F8F9F5]/80 flex items-center justify-between shadow-xs"
               >
                 <div>
-                  <div className="flex items-center gap-2 mb-1.5">
-                    <span className="font-mono text-sm font-bold text-[#14170F]">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="font-mono text-base font-black text-[#14170F]">
                       {r.supplier_id} → {r.hospital_id}
                     </span>
-                    <span className={`text-xs uppercase font-bold px-2 py-0.5 rounded-full ${
+                    <span className={`text-sm uppercase font-bold px-3 py-1 rounded-full ${
                       r.status === 'open' ? 'bg-[#8FD13F]/25 text-[#2D5A1E]' : 'bg-[#D9534F]/20 text-[#8C2421]'
                     }`}>
                       {r.status}
                     </span>
                   </div>
-                  <div className="text-sm font-medium text-[#14170F]/80">
+                  <div className="text-base font-bold text-[#14170F]/85">
                     {r.corridor_name || `Transit Route ${r.id}`}
                   </div>
-                  <div className="text-xs font-mono text-[#14170F]/60 mt-1">
+                  <div className="text-sm font-mono text-[#14170F]/65 mt-1 font-semibold">
                     Travel Time: {r.travel_minutes} min {r.delay_minutes > 0 ? `(+${r.delay_minutes}m delay)` : ''} | Max Capacity: {r.capacity_batches} batches
                   </div>
                 </div>
 
                 <div className="text-right">
-                  <span className="text-xs block text-[#14170F]/50 uppercase font-bold">Allocated</span>
-                  <span className="font-mono font-black text-base text-[#2D5A1E]">
+                  <span className="text-xs block text-[#14170F]/60 uppercase font-extrabold tracking-wider">Allocated</span>
+                  <span className="font-stat font-black text-xl sm:text-2xl text-[#2D5A1E]">
                     {r.active_batches ?? 0} batches
                   </span>
                 </div>

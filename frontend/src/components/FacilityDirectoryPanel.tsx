@@ -208,13 +208,13 @@ export const FacilityDirectoryPanel: React.FC<FacilityDirectoryPanelProps> = ({
                 </div>
 
                 {/* Details Grid */}
-                <div className="grid grid-cols-3 gap-2 text-xs font-mono mt-3 bg-[#F8F9F5] p-3 rounded-xl border border-black/10">
+                <div className="grid grid-cols-3 gap-2.5 text-sm font-mono mt-3 bg-[#F8F9F5] p-3 rounded-xl border border-black/10">
                   <div>
-                    <span className="text-[10px] block text-[#14170F]/60 uppercase font-bold">Capacity</span>
+                    <span className="text-xs block text-[#14170F]/60 uppercase font-extrabold tracking-wider">Capacity</span>
                     <span className="text-[#14170F] font-bold">{item.bed_count} beds ({item.icu_beds} ICU)</span>
                   </div>
                   <div>
-                    <span className="text-[10px] block text-[#14170F]/60 uppercase font-bold">Oxygen Buffer</span>
+                    <span className="text-xs block text-[#14170F]/60 uppercase font-extrabold tracking-wider">Oxygen Buffer</span>
                     <span className={item.isCrisis ? 'text-rose-700 font-black' : 'text-emerald-800 font-bold'}>
                       {item.isCrisis && item.activeData
                         ? `-${Math.max(0, item.activeData.requested_batches - (item.activeData.allocated_batches || 0))}b deficit`
@@ -222,15 +222,15 @@ export const FacilityDirectoryPanel: React.FC<FacilityDirectoryPanelProps> = ({
                     </span>
                   </div>
                   <div>
-                    <span className="text-[10px] block text-[#14170F]/60 uppercase font-bold">Facility Type</span>
-                    <span className="text-[#14170F] font-medium truncate block">{item.type || 'Hospital'}</span>
+                    <span className="text-xs block text-[#14170F]/60 uppercase font-extrabold tracking-wider">Facility Type</span>
+                    <span className="text-[#14170F] font-semibold truncate block">{item.type || 'Hospital'}</span>
                   </div>
                 </div>
 
                 {/* Officer & Actions */}
-                <div className="flex items-center justify-between gap-3 mt-3 pt-3 border-t border-black/5 text-xs">
-                  <div className="text-[#14170F]/70 text-xs truncate flex items-center gap-1.5">
-                    <Phone className="w-3.5 h-3.5 text-[#14170F]/50 shrink-0" />
+                <div className="flex items-center justify-between gap-3 mt-3 pt-3 border-t border-black/5 text-sm">
+                  <div className="text-[#14170F]/70 text-sm truncate flex items-center gap-1.5 font-medium">
+                    <Phone className="w-4 h-4 text-[#14170F]/50 shrink-0" />
                     <span>{item.nodal_officer} ({item.phone})</span>
                   </div>
 

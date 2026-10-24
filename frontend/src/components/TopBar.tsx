@@ -83,34 +83,34 @@ export const TopBar: React.FC<TopBarProps> = ({
   const [showDomainMenu, setShowDomainMenu] = useState(false);
 
   return (
-    <header className="min-h-[76px] py-2.5 px-6 border-b border-black/10 bg-white/95 backdrop-blur-xl flex flex-wrap items-center justify-between gap-4 z-30 shrink-0 text-[#14170F] shadow-sm">
+    <header className="min-h-[82px] py-3 px-6 sm:px-8 border-b border-black/10 bg-white/95 backdrop-blur-xl flex flex-wrap items-center justify-between gap-4 z-30 shrink-0 text-[#14170F] shadow-sm">
       {/* Operational Role Switcher & Tactical Scope on Left */}
-      <div className="flex items-center gap-3 flex-wrap">
-        <div className="flex items-center bg-black/[0.04] border border-black/10 p-1 rounded-full shadow-inner">
+      <div className="flex items-center gap-3.5 flex-wrap">
+        <div className="flex items-center bg-black/[0.04] border border-black/10 p-1.5 rounded-full shadow-inner">
           <button
             onClick={() => onSelectRolePOV('coordinator')}
             className={cn(
-              'px-4 py-2 rounded-full text-sm transition-all flex items-center gap-2 active:scale-95',
+              'px-4 sm:px-5 py-2.5 rounded-full text-sm sm:text-base transition-all flex items-center gap-2.5 active:scale-95',
               rolePOV === 'coordinator'
                 ? 'bg-white text-[#14170F] shadow-sm font-display font-black'
-                : 'text-[#14170F]/65 hover:text-[#14170F] font-semibold'
+                : 'text-[#14170F]/65 hover:text-[#14170F] font-bold'
             )}
             title="Regional Coordinator: Command & Geo-Map POV"
           >
-            <Building2 className="w-4 h-4 text-[#3E6B4F]" />
+            <Building2 className="w-5 h-5 text-[#2D5A1E]" />
             <span className="inline">Coordinator</span>
           </button>
           <button
             onClick={() => onSelectRolePOV('hospital')}
             className={cn(
-              'px-4 py-2 rounded-full text-sm transition-all flex items-center gap-2 active:scale-95',
+              'px-4 sm:px-5 py-2.5 rounded-full text-sm sm:text-base transition-all flex items-center gap-2.5 active:scale-95',
               rolePOV === 'hospital'
                 ? 'bg-white text-[#14170F] shadow-sm font-display font-black'
-                : 'text-[#14170F]/65 hover:text-[#14170F] font-semibold'
+                : 'text-[#14170F]/65 hover:text-[#14170F] font-bold'
             )}
             title={`${terminology.facilitySingle} Portal`}
           >
-            <Hospital className="w-4 h-4 text-[#3E6B4F]" />
+            <Hospital className="w-5 h-5 text-[#2D5A1E]" />
             <span className="inline">
               {domainPack === 'manufacturing' ? 'Plant Fab' : 'Hospital Portal'}
             </span>
@@ -118,14 +118,14 @@ export const TopBar: React.FC<TopBarProps> = ({
           <button
             onClick={() => onSelectRolePOV('supplier')}
             className={cn(
-              'px-4 py-2 rounded-full text-sm transition-all flex items-center gap-2 active:scale-95',
+              'px-4 sm:px-5 py-2.5 rounded-full text-sm sm:text-base transition-all flex items-center gap-2.5 active:scale-95',
               rolePOV === 'supplier'
                 ? 'bg-white text-[#14170F] shadow-sm font-display font-black'
-                : 'text-[#14170F]/65 hover:text-[#14170F] font-semibold'
+                : 'text-[#14170F]/65 hover:text-[#14170F] font-bold'
             )}
             title={`${terminology.supplierSingle} Ledger`}
           >
-            <Factory className="w-4 h-4 text-[#3E6B4F]" />
+            <Factory className="w-5 h-5 text-[#2D5A1E]" />
             <span className="inline">
               {domainPack === 'manufacturing' ? 'Wafer Hub' : 'Supplier Depot'}
             </span>
@@ -138,7 +138,7 @@ export const TopBar: React.FC<TopBarProps> = ({
             value={currentScenarioId}
             onChange={(e) => onSelectScenario(e.target.value)}
             disabled={isSimulating}
-            className="h-11 px-4 pr-9 rounded-full bg-white border border-black/15 text-sm font-display font-bold text-[#14170F] focus:outline-none focus:border-[#8FD13F] transition-all cursor-pointer appearance-none shadow-sm disabled:opacity-50 min-w-[200px]"
+            className="h-12 px-5 pr-10 rounded-full bg-white border border-black/15 text-sm sm:text-base font-display font-bold text-[#14170F] focus:outline-none focus:border-[#8FD13F] transition-all cursor-pointer appearance-none shadow-sm disabled:opacity-50 min-w-[220px]"
           >
             {scenarios.map((sc) => (
               <option key={sc.id} value={sc.id}>
@@ -146,22 +146,22 @@ export const TopBar: React.FC<TopBarProps> = ({
               </option>
             ))}
           </select>
-          <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-[#14170F]/60 text-sm font-bold">
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#14170F]/60 text-sm font-bold">
             ▾
           </div>
         </div>
       </div>
 
       {/* Center Controls */}
-      <div className="flex items-center gap-3 flex-wrap justify-center">
+      <div className="flex items-center gap-3.5 flex-wrap justify-center">
         {/* Settings button for domain pack */}
         <div className="relative">
           <button
             onClick={() => setShowDomainMenu(!showDomainMenu)}
-            className="h-10 px-4 rounded-full bg-white border border-black/15 text-sm font-bold text-[#14170F] hover:bg-black/5 transition-all flex items-center shadow-sm active:scale-95"
+            className="h-11 px-4 rounded-full bg-white border border-black/15 text-sm sm:text-base font-bold text-[#14170F] hover:bg-black/5 transition-all flex items-center shadow-sm active:scale-95"
             title="Enterprise Domain Pack Switcher"
           >
-            <Settings className="w-4 h-4 mr-1.5 text-[#3E6B4F]" />
+            <Settings className="w-4 h-4 mr-2 text-[#2D5A1E]" />
             <span>Domain: {domainPack === 'manufacturing' ? 'Semiconductor' : 'Healthcare'}</span>
           </button>
           {showDomainMenu && (
@@ -203,19 +203,19 @@ export const TopBar: React.FC<TopBarProps> = ({
         {rolePOV === 'coordinator' && (
           <>
             {/* Incident Chronometer HUD */}
-            <div className="flex items-center gap-2.5 px-4 py-2 bg-white border border-black/15 rounded-full shrink-0 font-mono shadow-sm">
+            <div className="flex items-center gap-3 px-5 py-2.5 bg-white border border-black/15 rounded-full shrink-0 font-mono shadow-sm">
               <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-[#3E6B4F]" />
-                <span className="font-bold text-sm text-[#14170F] whitespace-nowrap">
+                <Clock className="w-4 h-4 text-[#2D5A1E]" />
+                <span className="font-black text-base text-[#14170F] whitespace-nowrap">
                   T+{simulationMinute}m
                 </span>
-                <span className="text-xs text-[#14170F]/60 font-medium hidden lg:inline">
+                <span className="text-sm text-[#14170F]/60 font-semibold hidden lg:inline">
                   ({String(Math.floor(simulationMinute / 60)).padStart(2, '0')}:{String(simulationMinute % 60).padStart(2, '0')}:00)
                 </span>
               </div>
               <span
                 className={cn(
-                  'text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border hidden xl:inline',
+                  'text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full border hidden xl:inline',
                   simulationMinute === 0
                     ? 'text-[#3E6B4F] bg-[#8FD13F]/20 border-[#8FD13F]/30'
                     : simulationMinute < 60
@@ -237,11 +237,11 @@ export const TopBar: React.FC<TopBarProps> = ({
                   ? 'Dispatch'
                   : 'Debrief'}
               </span>
-              <div className="flex items-center gap-1.5 pl-2 border-l border-black/10">
+              <div className="flex items-center gap-2 pl-2.5 border-l border-black/10">
                 <button
                   onClick={() => onAdvanceTime(15)}
                   disabled={isSimulating || simulationMinute >= 300}
-                  className="text-xs font-bold px-2 py-1 rounded-md bg-black/5 hover:bg-black/10 text-[#14170F] transition-colors disabled:opacity-30 active:scale-95"
+                  className="text-xs font-bold px-2.5 py-1 rounded-lg bg-black/5 hover:bg-black/10 text-[#14170F] transition-colors disabled:opacity-30 active:scale-95"
                   title="Advance Simulation +15m"
                 >
                   +15m
@@ -249,7 +249,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                 <button
                   onClick={() => onAdvanceTime(30)}
                   disabled={isSimulating || simulationMinute >= 300}
-                  className="text-xs font-bold px-2 py-1 rounded-md bg-black/5 hover:bg-black/10 text-[#14170F] transition-colors disabled:opacity-30 active:scale-95"
+                  className="text-xs font-bold px-2.5 py-1 rounded-lg bg-black/5 hover:bg-black/10 text-[#14170F] transition-colors disabled:opacity-30 active:scale-95"
                   title="Advance Simulation +30m"
                 >
                   +30m
@@ -261,7 +261,7 @@ export const TopBar: React.FC<TopBarProps> = ({
             <button
               onClick={onReset}
               disabled={isSimulating}
-              className="h-10 px-4 rounded-full border border-black/15 bg-white hover:bg-black/5 text-sm font-bold text-[#14170F]/80 hover:text-[#14170F] disabled:opacity-40 transition-all flex items-center gap-1.5 shrink-0 shadow-sm active:scale-95"
+              className="h-11 px-4 rounded-full border border-black/15 bg-white hover:bg-black/5 text-sm sm:text-base font-bold text-[#14170F]/80 hover:text-[#14170F] disabled:opacity-40 transition-all flex items-center gap-2 shrink-0 shadow-sm active:scale-95"
               title="Reset Rehearsal to T+0m"
             >
               <RotateCcw className="w-4 h-4" />
@@ -272,19 +272,19 @@ export const TopBar: React.FC<TopBarProps> = ({
       </div>
 
       {/* Right Action Buttons */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2.5">
         {/* Official Project Badge with Full Form (Command Console Style) */}
         <div
           onClick={onToggleHero}
-          className="hidden 2xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/[0.04] border border-black/8 hover:bg-black/[0.07] transition-all cursor-pointer select-none group shadow-xs mr-1"
+          className="hidden 2xl:flex items-center gap-2.5 px-3.5 py-2 rounded-full bg-black/[0.04] border border-black/8 hover:bg-black/[0.07] transition-all cursor-pointer select-none group shadow-xs mr-1"
           title="Protocol Overview: Resource Evaluation Against Compound Threats"
         >
-          <div className="w-2 h-2 rounded-full bg-[#5B9C20] animate-pulse" />
-          <span className="font-display font-black text-xs text-[#14170F] tracking-tight">
+          <div className="w-2.5 h-2.5 rounded-full bg-[#5B9C20] animate-pulse" />
+          <span className="font-display font-black text-sm text-[#14170F] tracking-tight">
             REACT
           </span>
           <span className="text-black/20 text-xs">|</span>
-          <span className="text-[11px] font-medium text-[#14170F]/70 truncate max-w-[260px]">
+          <span className="text-xs font-bold text-[#14170F]/70 truncate max-w-[280px]">
             Resource Evaluation Against Compound Threats
           </span>
         </div>
