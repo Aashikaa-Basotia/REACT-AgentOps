@@ -25,6 +25,7 @@ export default {
         'text-muted': 'rgba(20, 23, 15, 0.58)',
       },
       fontFamily: {
+        orbitron: ['Orbitron', 'Space Grotesk', 'sans-serif'],
         display: ['Outfit', 'Space Grotesk', 'Plus Jakarta Sans', 'sans-serif'],
         sans: ['Plus Jakarta Sans', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
         mono: ['JetBrains Mono', 'IBM Plex Mono', 'Menlo', 'monospace'],

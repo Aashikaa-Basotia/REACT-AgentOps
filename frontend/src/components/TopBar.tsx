@@ -91,22 +91,22 @@ export const TopBar: React.FC<TopBarProps> = ({
         <div className="flex items-center shrink-0">
           <button
             onClick={onToggleHero}
-            className="flex items-center gap-3 px-3.5 py-1.5 rounded-2xl border border-[#94D648] bg-white shadow-sm hover:shadow-md hover:border-[#5B9C20] transition-all cursor-pointer group active:scale-95 select-none h-11"
+            className="flex items-center gap-2.5 sm:gap-3 px-3 sm:px-3.5 py-1.5 rounded-2xl border border-[#94D648] bg-white shadow-sm hover:shadow-md hover:border-[#5B9C20] transition-all cursor-pointer group active:scale-95 select-none h-11"
             title="REACT: Resource Evaluation Against Compound Threats — Click for Interactive Protocol Overview"
           >
             {/* Green Status Beacon Dot */}
             <div className="w-2.5 h-2.5 rounded-full bg-[#5C9F19] shrink-0" />
 
-            {/* Inner Light-Green Capsule for REACT */}
-            <div className="px-3 py-1 rounded-lg bg-[#EAF4DA] border border-[#D1E5B6] text-[#1B471E] font-mono font-black tracking-[0.22em] text-xs uppercase flex items-center justify-center leading-none">
+            {/* Inner Light-Green Capsule for REACT with Orbitron font & prominent size */}
+            <div className="px-3 py-1.5 rounded-lg bg-[#EAF4DA] border border-[#D1E5B6] text-[#1B471E] font-orbitron font-black tracking-[0.24em] text-sm uppercase flex items-center justify-center leading-none">
               REACT
             </div>
 
             {/* Subtle Divider */}
-            <div className="w-[1px] h-4 bg-[#E0E0E0] shrink-0" />
+            <div className="w-[1px] h-4 bg-[#E0E0E0] shrink-0 mx-0.5" />
 
-            {/* Subtitle Definition */}
-            <span className="text-[13px] font-sans font-medium text-[#4E4E4C] tracking-tight pr-1 whitespace-nowrap">
+            {/* Subtitle Definition (compact fullform so REACT is noticeably greater in size) */}
+            <span className="text-[11.5px] sm:text-xs font-sans font-medium text-[#4E4E4C] tracking-tight pr-1 whitespace-nowrap">
               Resource Evaluation Against Compound Threats
             </span>
           </button>

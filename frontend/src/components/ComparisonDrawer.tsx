@@ -18,6 +18,14 @@ interface ComparisonDrawerProps {
   onRefresh: () => void;
 }
 
+const cleanScenarioName = (name?: string): string => {
+  if (!name) return '';
+  return name
+    .replace(/â€“|â€”|\u00e2\u20ac\u201d|\u00e2\u20ac\u2014/g, '—')
+    .replace(/\s*[-—]\s*/g, ' — ')
+    .trim();
+};
+
 export const ComparisonDrawer: React.FC<ComparisonDrawerProps> = ({
   data,
   isLoading,
@@ -44,23 +52,23 @@ export const ComparisonDrawer: React.FC<ComparisonDrawerProps> = ({
             className="h-16 px-6 flex items-center justify-between cursor-pointer border-b border-black/10 hover:bg-black/[0.02] transition-colors select-none bg-white/80"
             onClick={() => setIsOpen(!isOpen)}
           >
-            <div className="flex items-center gap-3.5">
-              <div className="flex items-center gap-2.5">
-                <Scale className="w-5 h-5 text-[#2D5A1E]" />
-                <span className="text-sm sm:text-base font-display font-black text-[#14170F] tracking-wide">
+            <div className="flex items-center gap-3.5 min-w-0">
+              <div className="flex items-center gap-2.5 shrink-0">
+                <Scale className="w-5 h-5 text-[#2D5A1E] shrink-0" />
+                <span className="text-sm sm:text-base font-display font-black text-[#14170F] tracking-wide whitespace-nowrap">
                   Empirical Comparative Evaluation Proof
                 </span>
               </div>
-              <span className="text-xs bg-[#8FD13F]/25 border border-[#8FD13F]/40 text-[#2D5A1E] px-3 py-1 rounded-full flex items-center gap-1.5 font-mono font-bold">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#5B9C20]" />
-                Strict Invariants: 0 Illegal Commitments
+              <span className="text-xs bg-[#8FD13F]/25 border border-[#8FD13F]/40 text-[#2D5A1E] px-3 py-1 rounded-full flex items-center gap-1.5 font-mono font-bold shrink-0">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#5B9C20] shrink-0" />
+                <span>Strict Invariants: 0 Illegal Commitments</span>
               </span>
-              <span className="text-xs text-[#14170F]/65 font-medium hidden lg:inline">
+              <span className="text-xs text-[#14170F]/65 font-medium hidden xl:inline truncate">
                 Multi-Agent Coordinator vs Monolithic LLM vs Fixed Greedy Rules
               </span>
             </div>
 
-            <div className="flex items-center gap-3" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center gap-3 shrink-0" onClick={(e) => e.stopPropagation()}>
               <PillButton
                 variant="secondary"
                 size="md"
@@ -113,15 +121,18 @@ export const ComparisonDrawer: React.FC<ComparisonDrawerProps> = ({
                         <tr key={idx} className="hover:bg-black/[0.02] transition-colors">
                           <td className="py-3 px-4 font-bold text-[#14170F]">
                             <div className="text-sm font-black">{row.scenario}</div>
-                            <div className="text-xs text-[#14170F]/60 font-sans font-medium">
-                              {row.scenario_name}
+                            <div className="text-xs text-[#14170F]/70 font-sans font-medium whitespace-nowrap">
+                              {cleanScenarioName(row.scenario_name)}
                             </div>
                           </td>
 
                           {/* Fixed Rules */}
                           <td className="py-3 px-4 text-[#14170F]/85">
                             <div className="font-semibold">Tools: {row.fixed_rules?.tool_calls ?? 12}</div>
-                            <div className="text-xs text-[#87550E] font-bold">
+                            <div className={cn(
+                              "text-xs font-bold",
+                              (row.fixed_rules?.unmet_batches ?? 0) > 0 ? "text-[#87550E]" : "text-[#2D5A1E]"
+                            )}>
                               Unmet: {row.fixed_rules?.unmet_batches ?? 0}
                             </div>
                           </td>
@@ -129,25 +140,28 @@ export const ComparisonDrawer: React.FC<ComparisonDrawerProps> = ({
                           {/* Single Agent */}
                           <td className="py-3 px-4 text-[#14170F]/85">
                             <div className="font-semibold">Tools: {row.single_agent?.tool_calls ?? 14}</div>
-                            <div className="text-xs text-[#8C2421] font-bold">
-                              Violations: {row.single_agent?.invalid_proposals ?? 1}
+                            <div className={cn(
+                              "text-xs font-bold",
+                              (row.single_agent?.invalid_proposals ?? 0) > 0 ? "text-[#8C2421]" : "text-[#2D5A1E]"
+                            )}>
+                              Violations: {row.single_agent?.invalid_proposals ?? 0}
                             </div>
                           </td>
 
                           {/* Multi Agent */}
                           <td className="py-3 px-4 bg-[#8FD13F]/10 border-x border-[#8FD13F]/20 font-bold text-[#2D5A1E]">
-                            <div className="flex items-center gap-1.5 font-black text-sm">
-                              <CheckCircle2 className="w-4 h-4 text-[#5B9C20]" />
+                            <div className="flex items-center gap-1.5 font-black text-sm whitespace-nowrap">
+                              <CheckCircle2 className="w-4 h-4 text-[#5B9C20] shrink-0" />
                               <span>0 Illegal Commitments</span>
                             </div>
-                            <div className="text-xs text-[#14170F]/70 font-sans font-medium mt-0.5">
+                            <div className="text-xs text-[#14170F]/70 font-sans font-medium mt-0.5 whitespace-nowrap">
                               Tools: {row.multi_agent?.tool_calls ?? 13} • Unmet: {row.multi_agent?.unmet_batches ?? 0}
                             </div>
                           </td>
 
                           {/* Safety Invariant */}
-                          <td className="py-3 px-4">
-                            <span className="text-xs px-2.5 py-1 rounded-full bg-[#8FD13F]/20 text-[#2D5A1E] border border-[#8FD13F]/40 font-mono font-bold">
+                          <td className="py-3 px-4 whitespace-nowrap">
+                            <span className="text-xs px-2.5 py-1 rounded-full bg-[#8FD13F]/20 text-[#2D5A1E] border border-[#8FD13F]/40 font-mono font-bold whitespace-nowrap inline-block">
                               PASS (Two-Phase Lock)
                             </span>
                           </td>
